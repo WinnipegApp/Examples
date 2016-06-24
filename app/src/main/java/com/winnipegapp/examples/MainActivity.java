@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.winnipegapp.examples.Notifications.*;
+import com.winnipegapp.examples.Notifications.WeatherService.RetrieveWeather;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +31,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Fragment fragment;
     DrawerLayout drawerLayout;
     AHBottomNavigation bottomBar;
-    private List<Events> events;
-    RecyclerView recyclerView;
-    RVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupNavigationView();
 
-        //recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        //recyclerView.setHasFixedSize(true);
-
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-
-        //recyclerView.setLayoutManager(linearLayoutManager);
-
         initializeData();
-
-        //adapter = new RVAdapter(events);
-
-        //recyclerView.setAdapter(adapter);
 
         setupBottomBar();
 
@@ -146,6 +133,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    private void initializeData() {
+
+        // Moved propegation of events to MyHomeFragment.
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -199,17 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void initializeData() {
 
-        events = new ArrayList<>();
-        events.add(new Events("Card 1", "Winnipeg, MB", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam vehicula nisi, at vulputate nibh aliquet mollis.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 2", "Winnipeg, MB", "Integer mollis libero ex, eget dictum neque efficitur faucibus. Proin eget magna quam. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 3", "Winnipeg, MB", "Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 4", "Winnipeg, MB", "Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. ", R.drawable.ic_placeholder));
-        events.add(new Events("Card 5", "Winnipeg, MB", "Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 6", "Winnipeg, MB", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam vehicula nisi, at vulputate nibh aliquet mollis.", R.drawable.ic_placeholder));
-
-    }
 
     private void setupToolbar() {
 

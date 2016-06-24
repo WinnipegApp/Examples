@@ -28,19 +28,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-    <!--    <android.support.v7.widget.RecyclerView
-             android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingTop="0dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="0dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-
-        </android.support.v7.widget.RecyclerView> -->
+        <!-- Moved RecyclerView to activity_my_home - AL -->
 
         <FrameLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
