@@ -1,37 +1,45 @@
 package com.winnipegapp.examples;
 
-import android.content.Intent;
+
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import static com.winnipegapp.examples.R.color.colorCalendarTab;
+import static com.winnipegapp.examples.R.color.colorHomeTab;
+import static com.winnipegapp.examples.R.color.colorMapTab;
+import static com.winnipegapp.examples.R.color.colorServicesTab;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
+    TabLayout tabLayout;
+    ViewPager viewPager;
     Fragment fragment;
     DrawerLayout drawerLayout;
-    AHBottomNavigation bottomBar;
-    private List<Events> events;
-    RecyclerView recyclerView;
-    RVAdapter adapter;
+    MyHomeFragment myHomeFragment;
+    ServicesFragment servicesFragment;
+    CalendarFragment calendarFragment;
+    MapFragment mapFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,89 +50,67 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupNavigationView();
 
-        //recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        //recyclerView.setHasFixedSize(true);
-
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-
-        //recyclerView.setLayoutManager(linearLayoutManager);
-
-        initializeData();
-
-        //adapter = new RVAdapter(events);
-
-        //recyclerView.setAdapter(adapter);
-
         setupBottomBar();
+
+    }
+
+    private void setupToolbar() {
+
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        final ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    private void setupNavigationView() {
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
     private void setupBottomBar() {
 
-        // Setting up a Bottom Navigation according to an existing lib.
-        // Please refer to Gradle lib to the original author.
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Home").setIcon(R.drawable.ic_placeholder));
+        tabLayout.addTab(tabLayout.newTab().setText("Services").setIcon(R.drawable.ic_placeholder));
+        tabLayout.addTab(tabLayout.newTab().setText("Calendar").setIcon(R.drawable.ic_placeholder));
+        tabLayout.addTab(tabLayout.newTab().setText("Map").setIcon(R.drawable.ic_placeholder));
 
-        // Cast the object from activity_main.xml
-        bottomBar = (AHBottomNavigation)findViewById(R.id.bottomBar);
+        setCurrentTabFragment(0);
 
-        // Add the options. Each option is a Class from the given custom lib I'm using.
-        // (name, icon, color)
-        final AHBottomNavigationItem home = new AHBottomNavigationItem("Home", R.drawable.ic_placeholder2, Color.parseColor("#3366CC"));
-        AHBottomNavigationItem services = new AHBottomNavigationItem("Services", R.drawable.ic_placeholder2, Color.parseColor("#cc3333"));
-        AHBottomNavigationItem calendar = new AHBottomNavigationItem("Calendar", R.drawable.ic_placeholder2, Color.parseColor("#cc9933"));
-        AHBottomNavigationItem map = new AHBottomNavigationItem("Map", R.drawable.ic_placeholder2, Color.parseColor("#333399"));
-
-        // Add the objects to the Bottom Navigation Bar object
-        bottomBar.addItem(home);
-        bottomBar.addItem(services);
-        bottomBar.addItem(calendar);
-        bottomBar.addItem(map);
-
-        //  Enables reveal effect existing in the custom class
-        bottomBar.setColored(true);
-
-        bottomBar.setCurrentItem(0);
-
-        if (fragment == null) {
-
-            fragment = new MyHomeFragment();
-
-            setupFragment();
-
-        }
-
-        // Sets listeners. Here's where we call fragments and others
-        bottomBar.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(int position, boolean wasSelected) {
-
-                fragment = null;
-
-                if (position == 0) {
-
-                    toolbar.setBackgroundColor(Color.parseColor("#3366CC"));
-                    fragment = new MyHomeFragment();
+            public void onTabSelected(TabLayout.Tab tab) {
+                setCurrentTabFragment(tab.getPosition());
 
 
-                } else if (position == 1) {
 
-                    toolbar.setBackgroundColor(Color.parseColor("#cc3333"));
-                    fragment = new ServicesFragment();
+            }
 
-                } else if (position == 2) {
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                int id = tabLayout.getSelectedTabPosition();
 
-                    toolbar.setBackgroundColor(Color.parseColor("#cc9933"));
-                    fragment = new CalendarFragment();
+                tabLayout.getTabAt(id).setIcon(R.drawable.ic_placeholder);
 
-                } else if (position == 3) {
 
-                    toolbar.setBackgroundColor(Color.parseColor("#333399"));
-                    fragment = new MapFragment();
 
-                }
+            }
 
-                setupFragment();
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
 
@@ -132,17 +118,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void setupFragment() {
+    private void setCurrentTabFragment(int tabPosition) {
+        switch (tabPosition) {
+            case 0:
 
-        FragmentManager manager = getSupportFragmentManager();
+                replaceFragment(new MyHomeFragment());
+                tabLayout.getTabAt(0).setIcon(R.drawable.ic_placeholder2);
+                toolbar.setBackgroundColor(Color.parseColor("#336699"));
+                tabLayout.setBackgroundColor(Color.parseColor("#336699"));
+                changeStatusBarColor(Color.parseColor("#285184"));
+                break;
 
-        FragmentTransaction transaction = manager.beginTransaction();
+            case 1:
+                replaceFragment(new ServicesFragment());
+                tabLayout.getTabAt(1).setIcon(R.drawable.ic_placeholder2);
+                toolbar.setBackgroundColor(Color.parseColor("#d05120"));
+                tabLayout.setBackgroundColor(Color.parseColor("#d05120"));
+                changeStatusBarColor(Color.parseColor("#d86628"));
+                break;
 
-        transaction.replace(R.id.fragment, fragment);
+            case 2:
+                replaceFragment(new CalendarFragment());
+                tabLayout.getTabAt(2).setIcon(R.drawable.ic_placeholder2);
+                toolbar.setBackgroundColor(Color.parseColor("#b33c4a"));
+                tabLayout.setBackgroundColor(Color.parseColor("#b33c4a"));
+                changeStatusBarColor(Color.parseColor("#a3303b"));
+                break;
 
-        transaction.addToBackStack(null);
+            case 3:
+                replaceFragment(new MapFragment());
+                tabLayout.getTabAt(3).setIcon(R.drawable.ic_placeholder2);
+                toolbar.setBackgroundColor(Color.parseColor("#5d8430"));
+                tabLayout.setBackgroundColor(Color.parseColor("#5d8430"));
+                changeStatusBarColor(Color.parseColor("#4a6b26"));
+                break;
 
-        transaction.commit();
+        }
+    }
+
+    public void replaceFragment(Fragment fgmt) {
+
+        FragmentManager fm = getSupportFragmentManager();
+
+        FragmentTransaction ft = fm.beginTransaction();
+
+        ft.replace(R.id.fragment, fgmt);
+
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+        ft.commit();
 
     }
 
@@ -161,29 +185,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
+        toolbar.setBackgroundColor(Color.parseColor("#336699"));
+        tabLayout.setBackgroundColor(Color.parseColor("#336699"));
+        changeStatusBarColor(Color.parseColor("#285184"));
+
+        fragment = null;
+
         if (id == R.id.myprofile) {
 
-            Intent intent = new Intent(MainActivity.this, MyProfileActivity.class);
-
-            startActivity(intent);
+            replaceFragment(new MyProfileFragment());
 
         } else if (id == R.id.settings) {
 
-            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-
-            startActivity(intent);
+            replaceFragment(new SettingsFragment());
 
         } else if (id == R.id.about) {
 
-            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-
-            startActivity(intent);
+            replaceFragment(new AboutFragment());
 
         } else if (id == R.id.techsupport) {
 
-            Intent intent = new Intent(MainActivity.this, TechSupportActivity.class);
-
-            startActivity(intent);
+            replaceFragment(new TechSupportFragment());
 
         } else if (id == R.id.signout) {
 
@@ -199,42 +221,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void initializeData() {
+    public void changeStatusBarColor(int color) {
 
-        events = new ArrayList<>();
-        events.add(new Events("Card 1", "Winnipeg, MB", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam vehicula nisi, at vulputate nibh aliquet mollis.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 2", "Winnipeg, MB", "Integer mollis libero ex, eget dictum neque efficitur faucibus. Proin eget magna quam. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 3", "Winnipeg, MB", "Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 4", "Winnipeg, MB", "Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. ", R.drawable.ic_placeholder));
-        events.add(new Events("Card 5", "Winnipeg, MB", "Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue. Donec nec nisl volutpat, dictum tellus vitae, malesuada ligula. Praesent sed ullamcorper augue.", R.drawable.ic_placeholder));
-        events.add(new Events("Card 6", "Winnipeg, MB", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam vehicula nisi, at vulputate nibh aliquet mollis.", R.drawable.ic_placeholder));
-
-    }
-
-    private void setupToolbar() {
-
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        // Show menu icon
-        final ActionBar actionBar = getSupportActionBar();
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-    }
-
-    private void setupNavigationView(){
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
-
-        navigationView.setNavigationItemSelectedListener(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color);
+        }
 
     }
 

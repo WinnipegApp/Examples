@@ -18,7 +18,8 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -28,45 +29,42 @@
 
         </android.support.design.widget.AppBarLayout>
 
-    <!--    <android.support.v7.widget.RecyclerView
-             android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingTop="0dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="0dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-
-        </android.support.v7.widget.RecyclerView> -->
-
-        <FrameLayout
+        <RelativeLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment"
-            />
+            android:id="@+id/fragment">
 
-        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-            android:id="@+id/bottomBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimaryDark"
+                app:tabSelectedTextColor="@color/colorPrimaryText"
+                app:tabTextColor="@color/colorSecondaryText"
+                app:tabIndicatorHeight="0dp"
+                app:tabIndicatorColor="#fafafa"
+                android:translationZ="8dp">
+
+            </android.support.design.widget.TabLayout>
+
+            </RelativeLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationView"
-        android:layout_width="wrap_content"
+        android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_items"
         app:itemTextColor="#000000"
-        app:itemIconTint="@color/colorPrimaryLight"
-        app:menu="@menu/nav_items" />
+
+        />
 
 </android.support.v4.widget.DrawerLayout>
 

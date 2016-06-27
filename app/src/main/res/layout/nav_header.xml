@@ -1,8 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="192dp"
+    android:layout_height="212dp"
     android:background="?attr/colorPrimaryDark"
-    android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:gravity="bottom">
@@ -12,7 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome, User"
-        android:textSize="28dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textSize="28sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_alignBottom="@+id/imageView"
+        android:padding="16dp"
+        android:translationZ="4dp" />
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:translationZ="2dp"
+        android:src="@drawable/nav_drawer_img" />
+
+</RelativeLayout>

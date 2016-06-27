@@ -17,6 +17,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -44,9 +48,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getActivity(), MapFiltersActivity.class);
-
-                getActivity().startActivity(intent);
 
             }
         });
@@ -77,6 +78,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onActivityCreated(bundle);
 
     }
-
 
 }

@@ -2,15 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.winnipegapp.examples.ServicesFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.winnipegapp.examples.SlidingTabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Services"
-        android:id="@+id/textView"
-        android:layout_gravity="center"
-        android:textColor="#000000" />
+        android:elevation="0dp"
+        android:background="@color/colorServicesTab"
+        android:layout_below="@+id/toolbar" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        android:id="@+id/pager"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1">
+    </android.support.v4.view.ViewPager>
 
 </FrameLayout>
