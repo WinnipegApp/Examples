@@ -121,6 +121,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         if (weather != null){
             configureNotificationCard((NotificationCard)weatherCard, position);
 
+
         }
     }
 

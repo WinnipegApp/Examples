@@ -51,6 +51,6 @@ public class MyHomeFragment extends Fragment {
 
         //Creating test data to fill the recyclerview.
         notifications = new ArrayList<>();
-        notifications.add(new Weather("Weather Card", "Test data", 01, R.drawable.ic_placeholder2));
+        notifications.add(new Weather("23.3°C", "Partly Cloudy", 01, R.drawable.ic_partlycloudy));
     }
 }

@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3366CC</color>
-    <color name="colorPrimaryDark">#333399</color>
+    <color name="colorPrimary">#336699</color>
+    <color name="colorPrimaryDark">#285184</color>
     <color name="colorAccent">#cc3333</color>
 
     <color name="colorPrimaryLight">#336699</color>
-    <color name="colorWindowBackground">#FFFFFF</color>
+    <color name="colorWindowBackground">#fafafa</color>
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorSecondaryText">#ffffff</color>
     <color name="colorIcons">#FFFFFF</color>
-    <color name="colorDivider">#cc9933</color>
+
+    <color name="colorHomeTab">#336699</color>
+    <color name="colorHomeTabDark">#285184</color>
+    <color name="colorServicesTab">#d05120</color>
+    <color name="colorServicesTabDark">#d86628</color>
+    <color name="colorCalendarTab">#b33c4a</color>
+    <color name="colorCalendarTabDark">#a3303b</color>
+    <color name="colorMapTab">#5d8430</color>
+    <color name="colorMapTabDark">#4a6b26</color>
 
 </resources>

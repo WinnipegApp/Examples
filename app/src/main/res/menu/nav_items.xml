@@ -4,26 +4,31 @@
         <item
             android:id="@+id/myprofile"
             android:icon="@drawable/ic_placeholder"
-            android:title="My Profile"/>
+            android:title="My Profile"
+           />
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_placeholder"
-            android:title="Settings"/>
+            android:title="Settings"
+           />
 
         <item
             android:id="@+id/about"
             android:icon="@drawable/ic_placeholder"
-            android:title="About"/>
+            android:title="About"
+            />
 
         <item
             android:id="@+id/techsupport"
             android:icon="@drawable/ic_placeholder"
-            android:title="Tech Support"/>
+            android:title="Tech Support"
+            />
 
         <item
             android:id="@+id/signout"
             android:icon="@drawable/ic_placeholder"
-            android:title="Sign Out"/>
+            android:title="Sign Out"
+            />
 
     </group>
 
