@@ -1,6 +1,5 @@
 package com.winnipegapp.examples;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.NavigationView;
@@ -14,20 +13,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.MenuItem;;
 import android.widget.Toast;
-
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.winnipegapp.examples.Notifications.*;
-import com.winnipegapp.examples.Notifications.WeatherService.RetrieveWeather;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -72,11 +60,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 int id = tabLayout.getSelectedTabPosition();
 
                 tabLayout.getTabAt(id).setIcon(R.drawable.ic_placeholder);
-                
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
+
 
             }
 
@@ -87,41 +77,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setCurrentTabFragment(int tabPosition) {
         switch (tabPosition) {
             case 0:
-
                 replaceFragment(new MyHomeFragment());
+
                 tabLayout.getTabAt(0).setIcon(R.drawable.ic_placeholder2);
-                toolbar.setBackgroundColor(Color.parseColor("#336699"));
-                tabLayout.setBackgroundColor(Color.parseColor("#336699"));
-                changeStatusBarColor(Color.parseColor("#285184"));
+
+                changeStatusBarColor(Color.parseColor("#285184"),Color.parseColor("#336699"),Color.parseColor("#336699"));
+
                 break;
 
             case 1:
                 replaceFragment(new ServicesFragment());
+
                 tabLayout.getTabAt(1).setIcon(R.drawable.ic_placeholder2);
-                toolbar.setBackgroundColor(Color.parseColor("#d05120"));
-                tabLayout.setBackgroundColor(Color.parseColor("#d05120"));
-                changeStatusBarColor(Color.parseColor("#d86628"));
+
+                changeStatusBarColor(Color.parseColor("#d86628"),Color.parseColor("#d05120"),Color.parseColor("#d05120"));
+
                 break;
 
             case 2:
                 replaceFragment(new CalendarFragment());
+
                 tabLayout.getTabAt(2).setIcon(R.drawable.ic_placeholder2);
-                toolbar.setBackgroundColor(Color.parseColor("#b33c4a"));
-                tabLayout.setBackgroundColor(Color.parseColor("#b33c4a"));
-                changeStatusBarColor(Color.parseColor("#a3303b"));
+
+                changeStatusBarColor(Color.parseColor("#a3303b"),Color.parseColor("#b33c4a"),Color.parseColor("#b33c4a"));
+
                 break;
 
             case 3:
                 replaceFragment(new MapFragment());
+
                 tabLayout.getTabAt(3).setIcon(R.drawable.ic_placeholder2);
-                toolbar.setBackgroundColor(Color.parseColor("#5d8430"));
-                tabLayout.setBackgroundColor(Color.parseColor("#5d8430"));
-                changeStatusBarColor(Color.parseColor("#4a6b26"));
+
+                changeStatusBarColor(Color.parseColor("#4a6b26"),Color.parseColor("#5d8430"),Color.parseColor("#5d8430"));
+
                 break;
 
         }
-    }
 
+    }
 
     public void replaceFragment(Fragment fgmt) {
 
@@ -139,12 +132,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
             super.onBackPressed();
+
         }
+
     }
 
     @Override
@@ -152,9 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
-        toolbar.setBackgroundColor(Color.parseColor("#336699"));
-        tabLayout.setBackgroundColor(Color.parseColor("#336699"));
-        changeStatusBarColor(Color.parseColor("#285184"));
+        changeStatusBarColor(Color.parseColor("#285184"),Color.parseColor("#336699"),Color.parseColor("#336699"));
 
         if (id == R.id.myprofile) {
 
@@ -186,8 +183,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
-
     private void setupToolbar() {
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -215,13 +210,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void changeStatusBarColor(int color) {
+    public void changeStatusBarColor(int statusBarColor, int toolBarColor, int tabLayoutColor) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(color);
+
+            getWindow().setStatusBarColor(statusBarColor);
+
         }
+
+        toolbar.setBackgroundColor(toolBarColor);
+
+        tabLayout.setBackgroundColor(tabLayoutColor);
 
     }
 
