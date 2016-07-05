@@ -4,7 +4,9 @@
     android:background="?attr/colorPrimaryDark"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
-    android:gravity="bottom">
+    android:gravity="bottom"
+
+    android:fitsSystemWindows="true">
 
 
     <TextView
