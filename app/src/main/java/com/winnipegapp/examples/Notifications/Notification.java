@@ -13,22 +13,25 @@ public abstract class Notification {
     private int notificationId;
     private long notificationDate;
     private int notificationImage;
+    private String notificationType;
 
     /*
     * Object class for all notifications. All notification cards will inherit from this class.
     *
     * */
-    public Notification (String title, String description, int notificationId, int notificationImage) {
+    public Notification (String title, String description, int notificationId,
+                         int notificationImage) {
         this.title = title;
         this.description = description;
-        //  We need to increment this.
         this.notificationId = notificationId;
         this.notificationImage = notificationImage;
 
+        this.notificationType = "NOTIFICATION";
+        //  Date Usage:
+        //  SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a")
         this.notificationDate = System.currentTimeMillis();
 
-        //  Date Usage:
-        //  SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+        ;
     }
 
     public String getTitle() {
@@ -69,6 +72,14 @@ public abstract class Notification {
 
     public void setNotificationImage(int notificationImage) {
         this.notificationImage = notificationImage;
+    }
+
+    public String getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
     }
 
 }

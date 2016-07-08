@@ -17,7 +17,7 @@ public class WeatherCard extends NotificationCard {
     private TextView temperature;
 
     /*
-    *   Representation of the viewholder for weather cards
+    *   Representation of the ViewHolder for weather cards
     * */
     public WeatherCard(View itemView)
     {

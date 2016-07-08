@@ -53,13 +53,19 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     * Used to derive what kind of view to create. Corresponds to the enums above.
     * */
     public int getItemViewType(int position){
-        if (notifications.get(position) instanceof Weather){
+        if (notifications.get(position) instanceof Warning){
+            return WARNING;
+        }
+        else if (notifications.get(position) instanceof Weather){
             return WEATHER;
         }
 
         return -1;
     }
 
+    /*
+    * Based on the object type, creates a ViewHolder cardview appropriate for that notification.
+     * */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -67,6 +73,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
         switch (viewType){
+            case WARNING:
+                View v1 = inflater.inflate(R.layout.cardview_warning, viewGroup, false);
+                viewHolder = new WarningCard(v1);
+                break;
             case WEATHER:
                 View v2 = inflater.inflate(R.layout.cardview_weather, viewGroup, false);
                 viewHolder = new WeatherCard(v2);
@@ -86,6 +96,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position){
         switch (viewHolder.getItemViewType() ){
+            case WARNING:
+                WarningCard warningCard = (WarningCard) viewHolder;
+                configureWarningCard(warningCard, position);
+                break;
             case WEATHER:
                 WeatherCard weatherCard = (WeatherCard) viewHolder;
                 configureWeatherCard(weatherCard, position);
@@ -108,7 +122,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
             String dateString = sdf.format(notification.getNotificationDate());
 
-
             notificationCard.getNotificationTitle().setText(notification.getTitle());
             notificationCard.getNotificationDescription().setText(notification.getDescription());
             notificationCard.getNotificationDate().setText(dateString);
@@ -116,10 +129,19 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
+    /*
+    * Below are methods to configure the cardviews to have data after they are created.*/
+    private void configureWarningCard(WarningCard warningCard, int position){
+        Warning warning = (Warning) notifications.get(position);
+        if (warning != null){
+            configureNotificationCard(warningCard, position);
+        }
+    }
+
     private void configureWeatherCard(WeatherCard weatherCard, int position){
         Weather weather = (Weather) notifications.get(position);
         if (weather != null){
-            configureNotificationCard((NotificationCard)weatherCard, position);
+            configureNotificationCard(weatherCard, position);
 
 
         }
