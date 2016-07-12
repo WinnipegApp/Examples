@@ -2,15 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtilitiesServices">
+    tools:context="com.winnipegapp.examples.InquiryFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Utilities"
-        android:id="@+id/textView"
+        android:id="@+id/exTextView"
         android:layout_gravity="center"
-        android:textColor="#000000" />
+        android:textColor="#202020" />
 
 </FrameLayout>
