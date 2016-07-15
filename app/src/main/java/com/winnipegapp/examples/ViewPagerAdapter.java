@@ -27,15 +27,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         if(position == 0) {
 
-            return (new RemovalServices());
+            return (new RemovalServicesFragment());
 
         } else if (position == 1) {
 
-            return (new UtilitiesServices());
+            return (new UtilitiesServicesFragment());
 
         } else {
 
-            return (new RoadTransitServices());
+            return (new RoadTransitServicesFragment());
 
         }
 
