@@ -2,10 +2,12 @@ package com.winnipegapp.examples;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.winnipegapp.examples.Notifications.Notification;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Amari on 2016-06-27.
@@ -88,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
 
     //  Table names.
     public static final String TABLE_NOTIFICATIONS = "DEVICE_NOTIFICATIONS";
@@ -98,6 +100,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_INQUIRIES = "INQUIRIES";
     public static final String TABLE_INQUIRY_UPDATES = "INQUIRY_UPDATES";
     public static final String TABLE_READINGS = "READINGS";
+
+    //  An array of all the table names;
+    public String[] tableNames = {TABLE_NOTIFICATIONS, TABLE_USERS, TABLE_LOCATIONS,
+    TABLE_EVENTS, TABLE_INQUIRIES, TABLE_INQUIRY_UPDATES, TABLE_READINGS};
 
     //  Notification column names.
     public static final String COLUMN_NOTIFICATIONS_NOTIFICATION_ID = "notification_id";
@@ -184,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_LOCATIONS_LOCATION_ID + PRIMARY_KEY_MODULE +
             COLUMN_LOCATIONS_CATEGORY + TEXT_MODULE +
             COLUMN_LOCATIONS_NAME + TEXT_MODULE +
-            COLUMN_LOCATIONS_COORDINATES + " NUMERIC)";
+            COLUMN_LOCATIONS_COORDINATES + " TEXT)";
 
     public static final String CREATE_TABLE_EVENTS =  CREATION_MODULE +
             TABLE_EVENTS + "(" +
@@ -194,7 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_EVENTS_NAME + TEXT_MODULE +
             COLUMN_EVENTS_DESCRIPTION + TEXT_MODULE +
             COLUMN_EVENTS_ADDRESS + TEXT_MODULE +
-            COLUMN_EVENTS_COORDINATES + " NUMERIC)";
+            COLUMN_EVENTS_COORDINATES + " TEXT)";
 
     public static final String CREATE_TABLE_INQUIRIES =  CREATION_MODULE +
             TABLE_INQUIRIES + "(" +
@@ -220,12 +226,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_READINGS_TYPE + TEXT_MODULE +
             COLUMN_READINGS_AMOUNT + " NUMERIC)";
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     /*
-    * On first run, wll create all the tables.*/
+    * On first run, will create all the tables.*/
     @Override
     public void onCreate(SQLiteDatabase db) {
         buildTables(db);
@@ -245,7 +251,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
     * Builds all the current tables.
     * */
-    private void buildTables(SQLiteDatabase db) {
+    public void buildTables(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_NOTIFICATIONS);
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_LOCATIONS);
@@ -258,7 +264,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
     * Drops all the current tables.
     * */
-    private void dropTables(SQLiteDatabase db) {
+    public void dropTables(SQLiteDatabase db) {
         db.execSQL("DROP TABLE " + TABLE_NOTIFICATIONS);
         db.execSQL("DROP TABLE " + TABLE_USERS);
         db.execSQL("DROP TABLE " + TABLE_LOCATIONS);
@@ -268,17 +274,98 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_READINGS);
     }
 
+    /*
+    * Deletes all rows from the table..
+     */
+    public void deleteAll(){
+        SQLiteDatabase db = getWritableDatabase();
+        for (int i = 0; i < tableNames.length; i++){
+            db.delete(tableNames[i], null, null);
+        }
+    }
 
     /*
-    *   Class creates a notification in the database.
-    *
-    *   This  method is for testing.
+    * Method for creating users. Pass it a user object and it will add it to the database.
     * */
-    public void createNotification(Notification notification){
-        SQLiteDatabase db = getWritableDatabase();
+    public void createUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERS_USER_ID, user.getUser_id());
+        values.put(COLUMN_USERS_FULL_NAME, user.getFull_name());
+        values.put(COLUMN_USERS_PASSWORD, user.getPassword());
+        values.put(COLUMN_USERS_MOBILE_NO, user.getMobile_no());
+        values.put(COLUMN_USERS_ADDRESS, user.getAddress());
+        values.put(COLUMN_USERS_POSTAL_CODE, user.getPostal_code());
+        values.put(COLUMN_USERS_GARBAGE_DAY, user.getGarbage_day());
+        values.put(COLUMN_USERS_SNOW_ZONE, user.getSnow_zone());
 
+        //  Inserts the user into the database.
+        db.insert(TABLE_USERS, null, values);
+    }
+
+    /*
+    * Method for retrieving users from the database. This is exclusively for the prototype.
+    * */
+    public List<User> selectAllUsers(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<User> users = new ArrayList<>();
+        String query = "SEELCT * FROM " + TABLE_USERS;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                User user = new User();
+                user.setUser_id(Integer.parseInt(cursor.getString(0)));
+                user.setPassword(cursor.getString(1));
+                user.setFull_name(cursor.getString(2));
+                user.setAddress(cursor.getString(3));
+                user.setPostal_code(cursor.getString(4));
+                user.setMobile_no(Integer.parseInt(cursor.getString(5)));
+                user.setSnow_zone(cursor.getString(6));
+                user.setGarbage_day(cursor.getString(7));
+                users.add(user);
+            } while (cursor.moveToNext());
+        }
+        return users;
+    }
+
+    /*
+    * Adds a location to the database
+    * */
+    public void createLocation(LocationDetails locationDetail){
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_NOTIFICATIONS_DATE, notification.getNotificationDate());
+        //  Appends data to column values.
+        values.put(COLUMN_LOCATIONS_LOCATION_ID, locationDetail.getLocation_id());
+        values.put(COLUMN_LOCATIONS_CATEGORY, locationDetail.getCategory());
+        values.put(COLUMN_LOCATIONS_NAME, locationDetail.getName());
+        values.put(COLUMN_LOCATIONS_COORDINATES, locationDetail.getCoordinates());
+
+        //  Inserts into the database.
+        db.insert(TABLE_LOCATIONS, null, values);
+    }
+
+    /*
+    * Retrieves a list of all location details.
+    * */
+    public List<LocationDetails> getLocations(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<LocationDetails> locations = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_LOCATIONS;
+        Cursor cursor = db.rawQuery(query, null);
+
+        //  Iterates through all the rows
+        if (cursor.moveToFirst()){
+            do{
+                LocationDetails location = new LocationDetails();
+                location.setLocation_id(Integer.parseInt(cursor.getString(0)));
+                location.setName(cursor.getString(1));
+                location.setCategory(cursor.getString(2));
+                location.setCoordinates(cursor.getString(3));
+            }while (cursor.moveToNext());
+        }
+
+        return locations;
     }
 }
