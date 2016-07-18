@@ -30,10 +30,9 @@ public abstract class Notification {
         //  Date Usage:
         //  SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a")
         this.notificationDate = System.currentTimeMillis();
-
-        ;
     }
 
+    //region Default getters and setters.
     public String getTitle() {
         return title;
     }
@@ -81,5 +80,6 @@ public abstract class Notification {
     public void setNotificationType(String notificationType) {
         this.notificationType = notificationType;
     }
+    //endregion
 
 }

@@ -90,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     //  Table names.
     public static final String TABLE_NOTIFICATIONS = "DEVICE_NOTIFICATIONS";
@@ -117,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USERS_PASSWORD = "password";
     public static final String COLUMN_USERS_FULL_NAME = "full_name";
     public static final String COLUMN_USERS_ADDRESS = "address";
-    public static final String COLUMN_USERS_POSTAL_CODE = "postal_game";
+    public static final String COLUMN_USERS_POSTAL_CODE = "postal_code";
     public static final String COLUMN_USERS_MOBILE_NO = "mobile_no";
     public static final String COLUMN_USERS_SNOW_ZONE = "snow_zone";
     public static final String COLUMN_USERS_GARBAGE_DAY = "garbage_day";
@@ -139,10 +139,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Inquiry column names.
     public static final String COLUMN_INQUIRIES_INQUIRY_ID = "inquiry_id";
+    public static final String COLUMN_INQUIRIES_CREATED_AT = "postal_code";
     public static final String COLUMN_INQUIRIES_TYPE = "type";
     public static final String COLUMN_INQUIRIES_DESCRIPTION = "description";
-    public static final String COLUMN_INQUIRIES_CREATED_AT = "postal_code";
-    public static final String COLUMN_INQUIRIES_CITY_ZONE = "city zone";
+    public static final String COLUMN_INQUIRIES_IMAGE_URL = "image_url";
+    public static final String COLUMN_INQUIRIES_COORDINATES = "coordinates";
 
     //  Inquiry updates column names.
     public static final String COLUMN_INQUIRY_UPDATES_INQUIRY_UPDATE_ID = "inquiry_update_id";
@@ -208,15 +209,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_INQUIRIES_CREATED_AT + INTEGER_MODULE +
             COLUMN_INQUIRIES_TYPE + TEXT_MODULE +
             COLUMN_INQUIRIES_DESCRIPTION + TEXT_MODULE +
-            COLUMN_INQUIRIES_CITY_ZONE + " TEXT)";
+            COLUMN_INQUIRIES_IMAGE_URL + TEXT_MODULE +
+            COLUMN_INQUIRIES_COORDINATES + " TEXT)";
 
 
     public static final String CREATE_TABLE_INQUIRY_UPDATES =  CREATION_MODULE +
             TABLE_INQUIRY_UPDATES + "(" +
             COLUMN_INQUIRY_UPDATES_INQUIRY_UPDATE_ID + PRIMARY_KEY_MODULE +
             COLUMN_INQUIRY_UPDATES_DATE + NUMERIC_MODULE +
-            COLUMN_INQUIRY_UPDATES_DESCRIPTION + TEXT_MODULE +
             COLUMN_INQUIRY_UPDATES_STATUS + TEXT_MODULE +
+            COLUMN_INQUIRY_UPDATES_DESCRIPTION + TEXT_MODULE +
             COLUMN_INQUIRY_UPDATES_INQUIRY_ID + " INTEGER)";
 
     public static final String CREATE_TABLE_READINGS = CREATION_MODULE +
@@ -363,9 +365,99 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 location.setName(cursor.getString(1));
                 location.setCategory(cursor.getString(2));
                 location.setCoordinates(cursor.getString(3));
+                locations.add(location);
             }while (cursor.moveToNext());
         }
 
         return locations;
+    }
+
+    /*
+    * Adds an inquiry to the database.
+    * */
+    public void createInquiry(Inquiry inquiry){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        //  Appends data to column values.
+        values.put(COLUMN_INQUIRIES_INQUIRY_ID, inquiry.getInquiry_id());
+        values.put(COLUMN_INQUIRIES_CREATED_AT, inquiry.getCreated_at());
+        values.put(COLUMN_INQUIRIES_TYPE, inquiry.getType());
+        values.put(COLUMN_INQUIRIES_DESCRIPTION, inquiry.getDescription());
+        values.put(COLUMN_INQUIRIES_IMAGE_URL, inquiry.getImage_url());
+        values.put(COLUMN_INQUIRIES_COORDINATES, inquiry.getCoordinates());
+
+        //  Table insertion.
+        db.insert(TABLE_INQUIRIES, null, values);
+    }
+
+    /*
+    * Retrieves a list of all inquiries
+     * */
+    public List<Inquiry> getInquiries(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Inquiry> inquiries = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_INQUIRIES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        //  Iterates through all the rows
+        if (cursor.moveToFirst()){
+            do{
+                Inquiry inquiry = new Inquiry();
+                inquiry.setInquiry_id(Integer.parseInt(cursor.getString(0)));
+                inquiry.setCreated_at(Integer.parseInt(cursor.getString(1)));
+                inquiry.setType(cursor.getString(2));
+                inquiry.setDescription(cursor.getString(3));
+                inquiry.setImage_url(cursor.getString(4));
+                inquiry.setCoordinates(cursor.getString(5));
+                inquiries.add(inquiry);
+            }while (cursor.moveToNext());
+        }
+        return inquiries;
+    }
+
+    /*
+    * Adds a new inquiry update to the database.
+    * */
+    public void createInquiryUpdate(InquiryUpdate update){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        //  Appends data to column values.
+        values.put(COLUMN_INQUIRY_UPDATES_INQUIRY_UPDATE_ID, update.getInquiry_update_id());
+        values.put(COLUMN_INQUIRY_UPDATES_DATE, update.getDate());
+        values.put(COLUMN_INQUIRY_UPDATES_STATUS, update.getStatus());
+        values.put(COLUMN_INQUIRY_UPDATES_DESCRIPTION, update.getDescription());
+        values.put(COLUMN_INQUIRY_UPDATES_INQUIRY_UPDATE_ID, update.getDescription());
+
+        //  Inserts the update into the database.
+        db.insert(TABLE_INQUIRY_UPDATES, null, values);
+    }
+
+
+
+    /*
+    * Retrieves all inquiry updates. Pass it an inquiry id number and receive all updates related.
+    * */
+    public List<InquiryUpdate> getInquiryUpdates(int inquiry_id){
+        SQLiteDatabase db = getReadableDatabase();
+        List<InquiryUpdate> updates = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_INQUIRY_UPDATES + " WHERE " +
+                COLUMN_INQUIRY_UPDATES_INQUIRY_UPDATE_ID + " = " + inquiry_id;
+        Cursor cursor = db.rawQuery(query, null);
+
+        //  Iterates through all related rows.
+        if (cursor.moveToFirst()){
+            do{
+                InquiryUpdate update = new InquiryUpdate();
+                update.setInquiry_update_id(Integer.parseInt(cursor.getString(0)));
+                update.setDate(Integer.parseInt(cursor.getString(1)));
+                update.setStatus(cursor.getString(2));
+                update.setDescription(cursor.getString(3));
+                update.setInquiry_id(Integer.parseInt(cursor.getString(4)));
+                updates.add(update);
+            }while (cursor.moveToNext());
+        }
+        return updates;
     }
 }
