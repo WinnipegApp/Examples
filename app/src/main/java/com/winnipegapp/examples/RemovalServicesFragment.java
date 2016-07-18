@@ -1,6 +1,7 @@
 package com.winnipegapp.examples;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 public class RemovalServicesFragment extends ListFragment {
@@ -43,49 +43,39 @@ public class RemovalServicesFragment extends ListFragment {
 
         if (id == 0) {
 
-            replaceFragment(new InquiryFragment(), "GRAFFITI");
+            replaceActivity("GRAFFITI");
 
         } else if (id == 1) {
 
-            replaceFragment(new InquiryFragment(), "SNOW");
+            replaceActivity("SNOW");
 
         } else if (id == 2) {
 
-            replaceFragment(new InquiryFragment(), "HAZARDOUS MATERIALS");
+            replaceActivity("HAZARDOUS MATERIALS");
 
         } else if (id == 3) {
 
-            replaceFragment(new InquiryFragment(), "FALLEN TREE");
+            replaceActivity("FALLEN TREE");
 
         } else if (id == 4) {
 
-            replaceFragment(new InquiryFragment(), "DEAD ANIMAL");
+            replaceActivity("DEAD ANIMAL");
 
         } else if (id == 5) {
 
-            replaceFragment(new InquiryFragment(), "OTHER");
+            replaceActivity("OTHER");
 
         }
 
     }
 
-    public void replaceFragment(Fragment fgmt, String serviceID) {
+    public void replaceActivity (String serviceID) {
 
-        FragmentManager fm = getFragmentManager();
+        Intent myIntent = new Intent(getActivity(), InquiryActivity.class);
 
-        Bundle bundle = new Bundle();
+        myIntent.putExtra("default", serviceID);
 
-        bundle.putString("Service", serviceID);
-
-        fgmt.setArguments(bundle);
-
-        FragmentTransaction ft = fm.beginTransaction();
-
-        ft.replace(R.id.fragment, fgmt);
-
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-        ft.commit();
+        getActivity().startActivity(myIntent);
 
     }
 

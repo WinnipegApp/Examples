@@ -41,7 +41,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     private View view;
     private LocationManager locManager;
     private android.location.LocationListener locListener;
-    private Location location;
+    private Location locDetails;
     private Context context;
 
     // added by Mauricio El Matador
@@ -51,7 +51,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     boolean gpsEnabled;
     boolean netWorkEnabled;
 
-    private final float MINDISTANCE = 15F;
+    private final float LOCLEVEL = 15F;
     private final long MINTIME = 5000;
 
     double latitude;
@@ -73,11 +73,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             @Override
             public void onLocationChanged(Location loc) {
 
-                /*location = loc;
+                /*locDetails = loc;
                 //update
 
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
+                latitude = locDetails.getLatitude();
+                longitude = locDetails.getLongitude();
 
                 LatLng latLng = new LatLng(latitude, longitude);
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
@@ -111,13 +111,13 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         {
             if (gpsEnabled) {
                 try {
-                    locManager.requestLocationUpdates(locManager.GPS_PROVIDER, MINTIME, MINDISTANCE, locListener);
+                    locManager.requestLocationUpdates(locManager.GPS_PROVIDER, MINTIME, LOCLEVEL, locListener);
                 } catch (SecurityException se) {
 
                 }
             } else if (netWorkEnabled) {
                 try {
-                    locManager.requestLocationUpdates(locManager.NETWORK_PROVIDER, MINTIME, MINDISTANCE, locListener);
+                    locManager.requestLocationUpdates(locManager.NETWORK_PROVIDER, MINTIME, LOCLEVEL, locListener);
                 } catch (SecurityException se) {
 
                 }
@@ -177,7 +177,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         /*createLocationRequest();
 
-        if (location != null) {
+        if (locDetails != null) {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
         } else {
@@ -185,7 +185,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             longitude = -97.1375084;
         }
 
-        CameraUpdate updateLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), MINDISTANCE);
+        CameraUpdate updateLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), LOCLEVEL);
         mMap.moveCamera(updateLocation);
 */
         try {
@@ -285,7 +285,12 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         for (String provider : providers) {
 
-            Location l = locManager.getLastKnownLocation(provider);
+            Location l = null;
+            try {
+                l = locManager.getLastKnownLocation(provider);
+            } catch (SecurityException se) {
+
+            }
 
             if (l == null) {
 
@@ -307,15 +312,17 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public void getCurrentLocation() {
 
-        location = getLastKnownLocation();
+        locDetails = getLastKnownLocation();
+        latitude = locDetails.getLatitude();
+        longitude = locDetails.getLongitude();
 
-        if (location != null) {
+        if (locDetails != null) {
 
-            currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+            currentPosition = new LatLng(latitude, longitude);
 
             try {
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 15));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, LOCLEVEL));
 
             } catch (Exception e) {
 
