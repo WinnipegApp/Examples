@@ -134,13 +134,6 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             @Override
             public void onClick(View view) {
 
-
-            }
-            @Override
-            public boolean onCreateOptionsMenu(Menu menu) {
-                inflateMenu = inflateMenu.getMenuInflater();
-                inflateMenu.inflate(R.menu.game_menu, menu);
-                return true;
             }
         });
 
@@ -275,10 +268,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     public void getCurrentLocation() {
 
         locDetails = getLastKnownLocation();
-        latitude = locDetails.getLatitude();
-        longitude = locDetails.getLongitude();
 
         if (locDetails != null) {
+
+            latitude = locDetails.getLatitude();
+            longitude = locDetails.getLongitude();
 
             currentPosition = new LatLng(latitude, longitude);
 
