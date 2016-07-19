@@ -90,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
 
     //  Table names.
     public static final String TABLE_NOTIFICATIONS = "DEVICE_NOTIFICATIONS";
@@ -135,7 +135,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_EVENTS_NAME = "name";
     public static final String COLUMN_EVENTS_DESCRIPTION = "description";
     public static final String COLUMN_EVENTS_ADDRESS = "address";
-    public static final String COLUMN_EVENTS_COORDINATES = "coordinates";
 
     //  Inquiry column names.
     public static final String COLUMN_INQUIRIES_INQUIRY_ID = "inquiry_id";
@@ -152,7 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_INQUIRY_UPDATES_STATUS = "status";
     public static final String COLUMN_INQUIRY_UPDATES_INQUIRY_ID = "inquiry_id";
 
-    //  Readings column names.
+    //  Reading column names.
     public static final String COLUMN_READINGS_READING_ID = "reading_id";
     public static final String COLUMN_READINGS_DATE = "date";
     public static final String COLUMN_READINGS_TYPE = "type";
@@ -200,8 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_EVENTS_END_TIME + INTEGER_MODULE +
             COLUMN_EVENTS_NAME + TEXT_MODULE +
             COLUMN_EVENTS_DESCRIPTION + TEXT_MODULE +
-            COLUMN_EVENTS_ADDRESS + TEXT_MODULE +
-            COLUMN_EVENTS_COORDINATES + " TEXT)";
+            COLUMN_EVENTS_ADDRESS + " TEXT)";
 
     public static final String CREATE_TABLE_INQUIRIES =  CREATION_MODULE +
             TABLE_INQUIRIES + "(" +
@@ -434,12 +432,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_INQUIRY_UPDATES, null, values);
     }
 
-
-
     /*
     * Retrieves all inquiry updates. Pass it an inquiry id number and receive all updates related.
     * */
-    public List<InquiryUpdate> getInquiryUpdates(int inquiry_id){
+        public List<InquiryUpdate> getInquiryUpdates(int inquiry_id){
         SQLiteDatabase db = getReadableDatabase();
         List<InquiryUpdate> updates = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_INQUIRY_UPDATES + " WHERE " +
@@ -459,5 +455,89 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return updates;
+    }
+
+    /*
+    * Adds a metre reading to the database.
+    * */
+    public void createReading(Reading reading){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        //  Appends the data to column values.
+        values.put(COLUMN_READINGS_READING_ID, reading.getReading_id());
+        values.put(COLUMN_READINGS_DATE, reading.getDate());
+        values.put(COLUMN_READINGS_TYPE, reading.getType());
+        values.put(COLUMN_READINGS_AMOUNT, reading.getAmount());
+
+        //  Inserts reading into the database.
+        db.insert(TABLE_READINGS, null, values);
+    }
+
+    /*
+    * Retrieves a list of all readings from the database
+    * */
+    public List<Reading> getReadings(){
+        SQLiteDatabase db = getReadableDatabase();
+        List<Reading> readings = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_READINGS;
+        Cursor cursor = db.rawQuery(query, null);
+
+        //  Iterates through all the rows.
+        if (cursor.moveToFirst()){
+            do{
+                Reading reading = new Reading();
+                reading.setReading_id(Integer.parseInt(cursor.getString(0)));
+                reading.setDate(Integer.parseInt(cursor.getString(1)));
+                reading.setType(cursor.getString(2));
+                reading.setAmount(Double.parseDouble(cursor.getString(3)));
+                readings.add(reading);
+            }while (cursor.moveToNext());
+        }
+        return readings;
+    }
+
+    /*
+    * Adds an event to the database
+    * */
+    public void createEvent(Event event){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        //  Appends the data to column values.
+        values.put(COLUMN_EVENTS_EVENT_ID, event.getEvent_id());
+        values.put(COLUMN_EVENTS_START_TIME, event.getStart_time());
+        values.put(COLUMN_EVENTS_END_TIME, event.getEnd_time());
+        values.put(COLUMN_EVENTS_NAME, event.getName());
+        values.put(COLUMN_EVENTS_DESCRIPTION, event.getDescription());
+        values.put(COLUMN_EVENTS_ADDRESS, event.getAddress());
+
+        //  Inserts event into the database.
+        db.insert(TABLE_EVENTS, null, values);
+    }
+
+    /*
+    * Retrieves all events from the database.
+    * */
+    public List<Event> getEvents(){
+        SQLiteDatabase db = getReadableDatabase();
+        List<Event> events = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_EVENTS;
+        Cursor cursor = db.rawQuery(query, null);
+
+        //  Iterates through all the rows.
+        if(cursor.moveToFirst()){
+            do{
+                Event event = new Event();
+                event.setEvent_id(Integer.parseInt(cursor.getString(0)));
+                event.setStart_time(Integer.parseInt(cursor.getString(1)));
+                event.setEnd_time(Integer.parseInt(cursor.getString(2)));
+                event.setName(cursor.getString(3));
+                event.setDescription(cursor.getString(4));
+                event.setAddress(cursor.getString(5));
+                events.add(event);
+            }while(cursor.moveToNext());
+        }
+        return events;
     }
 }

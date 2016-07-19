@@ -46,7 +46,7 @@ public class Inquiry {
     /*
     * Returns the date represented as a SimpleDateFormat
     * */
-    public String getDateString() {;
+    public String getDateString() {
         //  Creates a date string by formatting the date.
         String date = sdf.format(this.created_at);
 
