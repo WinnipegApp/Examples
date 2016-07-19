@@ -6,5 +6,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
-
+    <string name="pools"> Pools </string>
+    <string name="golf_courses"> Golf Courses </string>
+    <string name="hospitals_walk_ins"> Hospitals/Walk Ins </string>
 </resources>

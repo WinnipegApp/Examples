@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -128,14 +129,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         }
 
         fabbutton = (FloatingActionButton) view.findViewById(R.id.fab);
-        assert fabbutton != null;
-        fabbutton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        registerForContextMenu(fabbutton);
 
         return this.view;
     }
@@ -295,4 +289,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         }
 
     }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        inflateMenu = getActivity().getMenuInflater();
+        inflateMenu.inflate(R.menu.mymapmenu, menu);
+    }
+
 }
