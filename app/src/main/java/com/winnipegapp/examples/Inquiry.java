@@ -4,10 +4,13 @@ import android.location.Location;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by Amari on 2016-07-18.
+ *
+ * Slightly updated by Mauricio on 2016-07-19
  */
 public class Inquiry {
     /*
@@ -16,13 +19,14 @@ public class Inquiry {
 
     //  Field declaration
     private int inquiry_id;
-    private long created_at;
+    private String created_at;
     private String type;
     private String description;
     private String image_url;
     private String coordinates;
 
     //  Formats the date.
+    Calendar calendar = Calendar.getInstance();
     private final SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
 
     /*
@@ -40,7 +44,7 @@ public class Inquiry {
         this.image_url = image_url;
         this.coordinates = coordinates;
 
-        this.created_at = System.currentTimeMillis();
+        this.created_at = sdf.format(calendar.getTime());
     }
 
     /*
@@ -53,9 +57,9 @@ public class Inquiry {
         return date;
     }
 
-    /*
+    /* Mauricio: we probably don't need this method anymore
     * Alternative setter for passing the date as a string.*/
-    public void setCreated_at(String date) {
+/*    public void setCreated_at(String date) {
         try {
             Date convertedDate = sdf.parse(date);
             this.created_at = convertedDate.getTime();
@@ -63,7 +67,7 @@ public class Inquiry {
         catch (ParseException e){
             this.created_at = 0;
         }
-    }
+    }*/
 
     /*
 * Creates a Location from the coordinates in the database.
@@ -111,11 +115,11 @@ public class Inquiry {
         this.description = description;
     }
 
-    public long getCreated_at() {
+    public String getCreated_at() {  // Changed to String by Mauricio on 2016-07-19
         return created_at;
     }
 
-    public void setCreated_at(long created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 

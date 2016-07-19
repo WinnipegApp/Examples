@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Amari on 2016-06-27.
+ * Slightly updated by Mauricio on 2016-07-19
  */
 
     //  Table creation in plain text.
@@ -62,7 +63,7 @@ import java.util.List;
         inquiry_id INTEGER PRIMARY KEY AUTOINCREMENT,
         type TEXT,
         description TEXT,
-        created_at INTEGER,
+        created_at TEXT, ** Changed to TEXT by Mauricio on 2016-07-19
         postal_code TEXT,
         city_zone TEXT
     );
@@ -206,7 +207,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE_INQUIRIES =  CREATION_MODULE +
             TABLE_INQUIRIES + "(" +
             COLUMN_INQUIRIES_INQUIRY_ID + PRIMARY_KEY_MODULE +
-            COLUMN_INQUIRIES_CREATED_AT + INTEGER_MODULE +
+            COLUMN_INQUIRIES_CREATED_AT + TEXT_MODULE + // Changed to TEXT_MODULE by Mauricio on 2016-07-19
             COLUMN_INQUIRIES_TYPE + TEXT_MODULE +
             COLUMN_INQUIRIES_DESCRIPTION + TEXT_MODULE +
             COLUMN_INQUIRIES_IMAGE_URL + TEXT_MODULE +
@@ -228,7 +229,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_READINGS_TYPE + TEXT_MODULE +
             COLUMN_READINGS_AMOUNT + " NUMERIC)";
 
-    public DatabaseHelper(Context context) {
+    public static DatabaseHelper sInstance;
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (sInstance == null) {
+
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+
+        }
+
+        return sInstance;
+
+    }
+
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -379,16 +393,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        //  Appends data to column values.
-        values.put(COLUMN_INQUIRIES_INQUIRY_ID, inquiry.getInquiry_id());
-        values.put(COLUMN_INQUIRIES_CREATED_AT, inquiry.getCreated_at());
-        values.put(COLUMN_INQUIRIES_TYPE, inquiry.getType());
-        values.put(COLUMN_INQUIRIES_DESCRIPTION, inquiry.getDescription());
-        values.put(COLUMN_INQUIRIES_IMAGE_URL, inquiry.getImage_url());
-        values.put(COLUMN_INQUIRIES_COORDINATES, inquiry.getCoordinates());
+        db.beginTransaction();
+        try {
+            //  Appends data to column values.
+            values.put(COLUMN_INQUIRIES_INQUIRY_ID, inquiry.getInquiry_id());
+            values.put(COLUMN_INQUIRIES_CREATED_AT, inquiry.getCreated_at());
+            values.put(COLUMN_INQUIRIES_TYPE, inquiry.getType());
+            values.put(COLUMN_INQUIRIES_DESCRIPTION, inquiry.getDescription());
+            values.put(COLUMN_INQUIRIES_IMAGE_URL, inquiry.getImage_url());
+            values.put(COLUMN_INQUIRIES_COORDINATES, inquiry.getCoordinates());
 
-        //  Table insertion.
-        db.insert(TABLE_INQUIRIES, null, values);
+            //  Table insertion.
+            db.insert(TABLE_INQUIRIES, null, values);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+
     }
 
     /*
@@ -405,7 +428,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do{
                 Inquiry inquiry = new Inquiry();
                 inquiry.setInquiry_id(Integer.parseInt(cursor.getString(0)));
-                inquiry.setCreated_at(Integer.parseInt(cursor.getString(1)));
+                inquiry.setCreated_at(cursor.getString(1));
                 inquiry.setType(cursor.getString(2));
                 inquiry.setDescription(cursor.getString(3));
                 inquiry.setImage_url(cursor.getString(4));
@@ -419,7 +442,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
     * Adds a new inquiry update to the database.
     * */
-    public void createInquiryUpdate(InquiryUpdate update){
+    public void createInquiryUpdate(InquiryUpdate update) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -432,9 +455,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //  Inserts the update into the database.
         db.insert(TABLE_INQUIRY_UPDATES, null, values);
+
     }
-
-
 
     /*
     * Retrieves all inquiry updates. Pass it an inquiry id number and receive all updates related.
