@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,20 @@ public class MyHomeFragment extends Fragment {
 
     private void initializeData() {
 
+        DatabaseHelper helper = DatabaseHelper.getInstance(getActivity());
+
         //Creating test data to fill the recyclerview.
         notifications = new ArrayList<>();
+
+        int j = helper.getInquiries().size();
+
+        for (int i = 0; i < j; i++) {
+
+            // add cards
+
+        }
+
         notifications.add(new Weather("23.3°C", "Partly Cloudy", 01, R.drawable.ic_partlycloudy));
+
     }
 }
