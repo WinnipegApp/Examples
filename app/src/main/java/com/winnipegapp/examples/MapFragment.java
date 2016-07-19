@@ -16,6 +16,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -43,6 +45,9 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     private android.location.LocationListener locListener;
     private Location locDetails;
     private Context context;
+    private FloatingActionButton fabbutton;
+    private SupportMapFragment mapFragment;
+    private MenuInflater inflateMenu;
 
     // added by Mauricio El Matador
     LatLng currentPosition;
@@ -73,22 +78,6 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             @Override
             public void onLocationChanged(Location loc) {
 
-                /*locDetails = loc;
-                //update
-
-                latitude = locDetails.getLatitude();
-                longitude = locDetails.getLongitude();
-
-                LatLng latLng = new LatLng(latitude, longitude);
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
-                mMap.moveCamera(cameraUpdate);
-
-                if ( Build.VERSION.SDK_INT >= 23 &&
-                        ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                        ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return  ;
-                }
-                locManager.removeUpdates(this);*/
             }
 
             @Override
@@ -130,7 +119,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         this.view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
         if (mapFragment != null) {
 
@@ -138,12 +127,12 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         }
 
-        FloatingActionButton fabbottom = (FloatingActionButton) view.findViewById(R.id.fab);
-        assert fabbottom != null;
-        fabbottom.setOnClickListener(new View.OnClickListener() {
+        fabbutton = (FloatingActionButton) view.findViewById(R.id.fab);
+        assert fabbutton != null;
+        fabbutton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-
 
             }
         });
@@ -175,36 +164,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         // If LocationServices not enabled then we should treat differently.
         getCurrentLocation();
 
-        /*createLocationRequest();
-
-        if (locDetails != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-        } else {
-            latitude = 49.899721;
-            longitude = -97.1375084;
-        }
-
-        CameraUpdate updateLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), LOCLEVEL);
-        mMap.moveCamera(updateLocation);
-*/
         try {
             mMap.setMyLocationEnabled(true);
         } catch (SecurityException se) {
 
         }
-
-//        LatLng currentPosition = new LatLng(latitude, longitude);
-//        mMap.addMarker(new MarkerOptions().position(currentPosition).title("Current Location"));
-//        LatLng initPos = new LatLng(49.895497, -97.138471);
-//
-//        CameraUpdate center = CameraUpdateFactory.newLatLng(initPos);
-//
-//        CameraUpdate zoom = CameraUpdateFactory.zoomTo(12);
-//
-//        mMap.moveCamera(center);
-//
-//        mMap.animateCamera(zoom);
     }
 
     @Override
@@ -217,15 +181,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     public void onPause() {
         super.onPause();
 
-//        if(locManager != null){
-//            locManager.removeUpdates(this);
-//        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
 
     }
 
@@ -233,16 +193,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     public void onStart() {
         super.onStart();
 
-//        if(apiMapCLient == null){
-//            apiMapCLient = new GoogleApiClient.Builder(this);
-//
-//        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
 
     }
 
@@ -313,10 +268,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     public void getCurrentLocation() {
 
         locDetails = getLastKnownLocation();
-        latitude = locDetails.getLatitude();
-        longitude = locDetails.getLongitude();
 
         if (locDetails != null) {
+
+            latitude = locDetails.getLatitude();
+            longitude = locDetails.getLongitude();
 
             currentPosition = new LatLng(latitude, longitude);
 
@@ -339,5 +295,4 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         }
 
     }
-
 }
