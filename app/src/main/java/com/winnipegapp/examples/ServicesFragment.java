@@ -18,17 +18,27 @@ import java.util.List;
 
 public class ServicesFragment extends Fragment {
 
-    Toolbar toolbar;
-    ViewPager pager;
-    ViewPagerAdapter adapter;
-    SlidingTabLayout tabs;
-    CharSequence tabTitle[] = {"Removal", "Utilities", "Road & Transit"};
-    int qtyTabs = 3;
+    private View view;
+    private Toolbar toolbar;
+    private ViewPager pager;
+    private ViewPagerAdapter adapter;
+    private SlidingTabLayout tabs;
+    private CharSequence tabTitle[] = {"Removal", "Utilities", "Road & Transit"};
+    private int qtyTabs = 3;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_services, container, false);
+        view = inflater.inflate(R.layout.fragment_services, container, false);
+
+        setupToolbar();
+
+        return view;
+
+    }
+
+    public void setupToolbar() {
 
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
@@ -44,18 +54,16 @@ public class ServicesFragment extends Fragment {
 
         tabs.setDistributeEvenly(true);
 
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+/*        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
 
                 return getResources().getColor(R.color.colorSecondaryText);
 
             }
-        });
+        });*/
 
         tabs.setViewPager(pager);
-
-        return view;
 
     }
 
