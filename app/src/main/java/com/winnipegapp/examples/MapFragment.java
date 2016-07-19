@@ -16,6 +16,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -45,6 +47,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     private Context context;
     private FloatingActionButton fabbutton;
     private SupportMapFragment mapFragment;
+    private MenuInflater inflateMenu;
 
     // added by Mauricio El Matador
     LatLng currentPosition;
@@ -74,7 +77,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
             @Override
             public void onLocationChanged(Location loc) {
-                
+
             }
 
             @Override
@@ -127,10 +130,17 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         fabbutton = (FloatingActionButton) view.findViewById(R.id.fab);
         assert fabbutton != null;
         fabbutton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
 
+            }
+            @Override
+            public boolean onCreateOptionsMenu(Menu menu) {
+                inflateMenu = inflateMenu.getMenuInflater();
+                inflateMenu.inflate(R.menu.game_menu, menu);
+                return true;
             }
         });
 
@@ -291,5 +301,4 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         }
 
     }
-
 }
