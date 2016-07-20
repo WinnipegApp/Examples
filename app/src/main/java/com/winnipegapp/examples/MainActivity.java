@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onTabSelected(TabLayout.Tab tab) {
                 setCurrentTabFragment(tab.getPosition());
 
-
-
             }
 
             @Override

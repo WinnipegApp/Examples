@@ -51,8 +51,11 @@
         <activity
             android:name=".InquiryActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
         <activity android:name=".MyProfileActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginFormActivity" />
+        <activity android:name=".LoginRegistrationFormS1"></activity>
     </application>
 
 </manifest>
