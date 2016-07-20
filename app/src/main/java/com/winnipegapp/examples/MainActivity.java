@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setupBottomBar() {
 
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Home").setIcon(R.drawable.ic_placeholder));
-        tabLayout.addTab(tabLayout.newTab().setText("Services").setIcon(R.drawable.ic_placeholder));
-        tabLayout.addTab(tabLayout.newTab().setText("Calendar").setIcon(R.drawable.ic_placeholder));
-        tabLayout.addTab(tabLayout.newTab().setText("Map").setIcon(R.drawable.ic_placeholder));
+        tabLayout.addTab(tabLayout.newTab().setText("Home").setIcon(R.drawable.home_inactive_128x128));
+        tabLayout.addTab(tabLayout.newTab().setText("Services").setIcon(R.drawable.services_inactive_128x128));
+        tabLayout.addTab(tabLayout.newTab().setText("Calendar").setIcon(R.drawable.calendar_inactive_128x128));
+        tabLayout.addTab(tabLayout.newTab().setText("Map").setIcon(R.drawable.map_inactive_128x128));
 
         setCurrentTabFragment(0);
 
@@ -67,8 +67,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 int id = tabLayout.getSelectedTabPosition();
+                switch (id) {
+                    case 0:
 
-                tabLayout.getTabAt(id).setIcon(R.drawable.ic_placeholder);
+                        tabLayout.getTabAt(0).setIcon(R.drawable.home_inactive_128x128);
+
+                        break;
+
+                    case 1:
+
+                        tabLayout.getTabAt(1).setIcon(R.drawable.services_inactive_128x128);
+
+                        break;
+
+                    case 2:
+
+                        tabLayout.getTabAt(2).setIcon(R.drawable.calendar_inactive_128x128);
+
+                        break;
+
+                    case 3:
+
+                        tabLayout.getTabAt(3).setIcon(R.drawable.map_inactive_128x128);
+
+                        break;
+
+                }
 
             }
 
@@ -88,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case 0:
                 replaceFragment(new MyHomeFragment());
 
-                tabLayout.getTabAt(0).setIcon(R.drawable.ic_placeholder2);
+                tabLayout.getTabAt(0).setIcon(R.drawable.home_active_128x128);
 
                 changeStatusBarColor(Color.parseColor("#285184"),Color.parseColor("#336699"),Color.parseColor("#336699"));
 
@@ -97,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case 1:
                 replaceFragment(new ServicesFragment());
 
-                tabLayout.getTabAt(1).setIcon(R.drawable.ic_placeholder2);
+                tabLayout.getTabAt(1).setIcon(R.drawable.services_active_128x128);
 
                 changeStatusBarColor(Color.parseColor("#d86628"),Color.parseColor("#d05120"),Color.parseColor("#d05120"));
 
@@ -106,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case 2:
                 replaceFragment(new CalendarFragment());
 
-                tabLayout.getTabAt(2).setIcon(R.drawable.ic_placeholder2);
+                tabLayout.getTabAt(2).setIcon(R.drawable.calendar_active_128x128);
 
                 changeStatusBarColor(Color.parseColor("#a3303b"),Color.parseColor("#b33c4a"),Color.parseColor("#b33c4a"));
 
@@ -115,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case 3:
                 replaceFragment(new MapFragment());
 
-                tabLayout.getTabAt(3).setIcon(R.drawable.ic_placeholder2);
+                tabLayout.getTabAt(3).setIcon(R.drawable.map_active_128x128);
 
                 changeStatusBarColor(Color.parseColor("#4a6b26"),Color.parseColor("#5d8430"),Color.parseColor("#5d8430"));
 

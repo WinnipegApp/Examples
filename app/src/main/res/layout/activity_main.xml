@@ -45,7 +45,7 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/colorPrimaryDark"
                 app:tabSelectedTextColor="@color/colorPrimaryText"
-                app:tabTextColor="@color/colorSecondaryText"
+                app:tabTextColor="#80FFFFFF"
                 app:tabIndicatorHeight="0dp"
                 app:tabIndicatorColor="#fafafa"
                 android:translationZ="8dp">

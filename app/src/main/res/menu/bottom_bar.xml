@@ -2,22 +2,18 @@
 
     <item
         android:id="@+id/item_home"
-        android:icon="@drawable/ic_placeholder"
         android:title="Home" />
 
     <item
         android:id="@+id/item_services"
-        android:icon="@drawable/ic_placeholder"
         android:title="Services" />
 
     <item
         android:id="@+id/item_calendar"
-        android:icon="@drawable/ic_placeholder"
         android:title="Calendar" />
 
     <item
         android:id="@+id/item_map"
-        android:icon="@drawable/ic_placeholder"
         android:title="Map" />
 
 </menu>
