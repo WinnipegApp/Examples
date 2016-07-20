@@ -19,7 +19,7 @@ public class Inquiry {
 
     //  Field declaration
     private int inquiry_id;
-    private String created_at;
+    private long created_at;
     private String type;
     private String description;
     private String image_url;
@@ -44,7 +44,7 @@ public class Inquiry {
         this.image_url = image_url;
         this.coordinates = coordinates;
 
-        this.created_at = sdf.format(calendar.getTime());
+        this.created_at = System.currentTimeMillis();
     }
 
     /*
@@ -115,11 +115,11 @@ public class Inquiry {
         this.description = description;
     }
 
-    public String getCreated_at() {  // Changed to String by Mauricio on 2016-07-19
+    public long getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(long created_at) {
         this.created_at = created_at;
     }
 

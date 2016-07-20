@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 6;
 
     //  Table names.
     public static final String TABLE_NOTIFICATIONS = "DEVICE_NOTIFICATIONS";
@@ -205,7 +205,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE_INQUIRIES =  CREATION_MODULE +
             TABLE_INQUIRIES + "(" +
             COLUMN_INQUIRIES_INQUIRY_ID + PRIMARY_KEY_MODULE +
-            COLUMN_INQUIRIES_CREATED_AT + TEXT_MODULE + // Changed to TEXT_MODULE by Mauricio on 2016-07-19
+            COLUMN_INQUIRIES_CREATED_AT + INTEGER_MODULE +
             COLUMN_INQUIRIES_TYPE + TEXT_MODULE +
             COLUMN_INQUIRIES_DESCRIPTION + TEXT_MODULE +
             COLUMN_INQUIRIES_IMAGE_URL + TEXT_MODULE +
@@ -426,7 +426,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do{
                 Inquiry inquiry = new Inquiry();
                 inquiry.setInquiry_id(Integer.parseInt(cursor.getString(0)));
-                inquiry.setCreated_at(cursor.getString(1));
+                inquiry.setCreated_at(cursor.getInt(1));
                 inquiry.setType(cursor.getString(2));
                 inquiry.setDescription(cursor.getString(3));
                 inquiry.setImage_url(cursor.getString(4));

@@ -12,14 +12,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 public class InquiryActivity extends AppCompatActivity {
@@ -42,7 +39,6 @@ public class InquiryActivity extends AppCompatActivity {
     private String inquiry_type;
     private String description;
     private String coordinates;
-    private String creationDate;
     private String imageURL;
 
 
@@ -198,13 +194,6 @@ public class InquiryActivity extends AppCompatActivity {
     public void initialiseData() {
 
         /**
-         *   Retrieves date from the system and passes to the corresponding variable
-         * */
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        creationDate = dateFormat.format(calendar.getTime());
-
-        /**
          *   Retrieves inquiry type from the previous activity and passes to the corresponding variable
          * */
         Intent intent = getIntent();
@@ -235,12 +224,6 @@ public class InquiryActivity extends AppCompatActivity {
         helper.createInquiry(inquiry);
 
         Toast.makeText(getApplicationContext(), "Inquiry number " + inquiry_id + " was created.", Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i > helper.getInquiries().size(); i++) {
-
-            Log.i("Inquiry number:", String.valueOf(i));
-
-        }
 
         this.finish();
 
