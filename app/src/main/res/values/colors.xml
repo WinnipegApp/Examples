@@ -19,4 +19,8 @@
     <color name="colorMapTab">#5d8430</color>
     <color name="colorMapTabDark">#4a6b26</color>
 
+    <color name="color_state_pressed"> #660099 </color>
+    <color name="color_layout_circle"> #6633CC </color>
+    <color name="color_editText_bottom">#6f6f6f</color>
+
 </resources>
