@@ -1,6 +1,7 @@
 package com.winnipegapp.examples;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,41 +43,31 @@ public class RoadTransitServicesFragment extends ListFragment {
 
         if (id == 0) {
 
-            replaceFragment(new RTInquiryFragment(), "POTHOLE");
+            replaceActivity("POTHOLE");
 
         } else if (id == 1) {
 
-            replaceFragment(new RTInquiryFragment(), "TRAFFIC LIGHT");
+            replaceActivity("TRAFFIC LIGHT");
 
         } else if (id == 2) {
 
-            replaceFragment(new RTInquiryFragment(), "DAMAGED/STOLEN SIGN");
+            replaceActivity("DAMAGED/STOLEN SIGN");
 
         } else if (id == 3) {
 
-            replaceFragment(new RTInquiryFragment(), "BUS SHELTER VANDALISM");
+            replaceActivity("BUS SHELTER VANDALISM");
 
         }
 
     }
 
-    public void replaceFragment(Fragment fgmt, String serviceID) {
+    public void replaceActivity (String serviceID) {
 
-        FragmentManager fm = getFragmentManager();
+        Intent myIntent = new Intent(getActivity(), InquiryActivity.class);
 
-        Bundle bundle = new Bundle();
+        myIntent.putExtra("default", serviceID);
 
-        bundle.putString("RT", serviceID);
-
-        fgmt.setArguments(bundle);
-
-        FragmentTransaction ft = fm.beginTransaction();
-
-        ft.replace(R.id.fragment, fgmt);
-
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-        ft.commit();
+        getActivity().startActivity(myIntent);
 
     }
 }

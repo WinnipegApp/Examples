@@ -63,7 +63,7 @@ public class MyHomeFragment extends Fragment {
 
         }
 
-        notifications.add(new Weather("23.3°C", "Partly Cloudy", 01, R.drawable.ic_partlycloudy));
+        //notifications.add(new Weather("23.3°C", "Partly Cloudy", 01, R.drawable.ic_partlycloudy));
 
     }
 }
