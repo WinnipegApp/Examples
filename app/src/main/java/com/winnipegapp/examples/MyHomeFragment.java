@@ -59,7 +59,7 @@ public class MyHomeFragment extends Fragment {
 
         for (int i = 0; i < j; i++) {
 
-            // add cards
+             notifications.add(new Warning(helper.getInquiries().get(i).getType(), helper.getInquiries().get(i).getDescription(),01, R.drawable.ic_placeholder));
 
         }
 
