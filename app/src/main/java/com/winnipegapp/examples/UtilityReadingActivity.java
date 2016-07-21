@@ -30,7 +30,7 @@ public class UtilityReadingActivity extends AppCompatActivity {
         utilityOne = (TextView) findViewById(R.id.utilityOne);
         utilityTwo = (TextView) findViewById(R.id.utilityTwo);
         utilityOneRead = (EditText) findViewById(R.id.utilityOneRead);
-        utilityTwoRead = (EditText) findViewById(R.id.tilityTwoRead);
+        utilityTwoRead = (EditText) findViewById(R.id.utilityTwoRead);
         buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
 
         setupToolbar();

@@ -1,5 +1,6 @@
 package com.winnipegapp.examples;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.NavigationView;
@@ -59,8 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 setCurrentTabFragment(tab.getPosition());
-
-
 
             }
 
@@ -188,7 +187,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.myprofile) {
 
-            replaceFragment(new MyProfileFragment());
+            //replaceFragment(new MyProfileFragment());
+            Intent intent = new Intent(MainActivity.this, MyProfileActivity.class);
+
+            startActivity(intent);
 
         } else if (id == R.id.settings) {
 
