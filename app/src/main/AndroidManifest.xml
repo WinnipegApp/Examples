@@ -51,14 +51,13 @@
         <activity
             android:name=".InquiryActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".UtilityReadingActivity"></activity>
+        <activity android:name=".UtilityReadingActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".LoginRegistrationFormS1" />
-        <activity android:name=".LoginScanIdS1"/>
-
-
+        <activity android:name=".LoginScanIdS1" />
+        <activity android:name=".LoginRegistrationFormS2"></activity>
     </application>
 
 </manifest>

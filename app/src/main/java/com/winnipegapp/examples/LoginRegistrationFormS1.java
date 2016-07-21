@@ -28,7 +28,7 @@ public class LoginRegistrationFormS1 extends AppCompatActivity
 
             public void onClick(View v)
             {
-                startActivity(new Intent(LoginRegistrationFormS1.this, LoginForm.class));
+                startActivity(new Intent(LoginRegistrationFormS1.this, LoginScanIdS1.class));
             }
         });
     }

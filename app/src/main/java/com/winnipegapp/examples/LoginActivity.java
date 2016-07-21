@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+                startActivity(new Intent(LoginActivity.this, LoginRegistrationFormS1.class));
             }
         });
 
