@@ -1,6 +1,7 @@
 package com.winnipegapp.examples;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,39 +37,30 @@ public class UtilitiesServicesFragment extends ListFragment {
         return rootView;
     }
 
-    public void replaceFragment(Fragment fgmt, String serviceID) {
-
-        FragmentManager fm = getFragmentManager();
-
-        Bundle bundle = new Bundle();
-
-        bundle.putString("Utility", serviceID);
-
-        fgmt.setArguments(bundle);
-
-        FragmentTransaction ft = fm.beginTransaction();
-
-        ft.replace(R.id.fragment, fgmt);
-
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-        ft.commit();
-
-    }
-
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
         if (id == 0) {
 
-            replaceFragment(new UtilityReadFragment(), "GAS & ELECTRICITY");
+            replaceActivity("GAS ELECTRICITY");
 
         } else {
 
-            replaceFragment(new UtilityReadFragment(), "WATER");
+            replaceActivity("WATER");
 
         }
 
     }
+
+    public void replaceActivity (String serviceID) {
+
+        Intent myIntent = new Intent(getActivity(), UtilityReadingActivity.class);
+
+        myIntent.putExtra("default", serviceID);
+
+        getActivity().startActivity(myIntent);
+
+    }
+
 }
