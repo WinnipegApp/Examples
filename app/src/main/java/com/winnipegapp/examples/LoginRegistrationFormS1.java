@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginForm extends AppCompatActivity
+public class LoginRegistrationFormS1 extends AppCompatActivity
 {
     Toolbar toolbar;
     Button btnScanId;
@@ -25,9 +25,10 @@ public class LoginForm extends AppCompatActivity
 
         btnScanId.setOnClickListener(new View.OnClickListener()
         {
+
             public void onClick(View v)
             {
-                startActivity(new Intent(LoginForm.this, LoginScan.class));
+                startActivity(new Intent(LoginRegistrationFormS1.this, LoginForm.class));
             }
         });
     }
