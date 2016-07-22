@@ -273,6 +273,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return users;
     }
 
+    /**
+    * Method for retrieving users from the database. This is exclusively for the prototype.
+    * */
+    public List<User> selectSpecificUser(int user_id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<User> users = new ArrayList<>();
+        String query = "SEELCT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USER_ID +
+                "= " + user_id;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                User user = new User();
+                user.setUser_id(Integer.parseInt(cursor.getString(0)));
+                user.setPassword(cursor.getString(1));
+                user.setFull_name(cursor.getString(2));
+                user.setAddress(cursor.getString(3));
+                user.setPostal_code(cursor.getString(4));
+                user.setMobile_no(Integer.parseInt(cursor.getString(5)));
+                user.setSnow_zone(cursor.getString(6));
+                user.setGarbage_day(cursor.getString(7));
+                users.add(user);
+            } while (cursor.moveToNext());
+        }
+        return users;
+    }
+
     /*
     * Adds a location to the database
     * */
