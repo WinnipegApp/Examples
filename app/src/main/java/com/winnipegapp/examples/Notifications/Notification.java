@@ -1,8 +1,5 @@
 package com.winnipegapp.examples.Notifications;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by Amari on 2016-06-14.
  */
@@ -12,19 +9,16 @@ public abstract class Notification implements NotificationInterface{
     private String description;
     private int notificationId;
     private long notificationDate;
-    private int notificationImage;
     private String notificationType;
 
     /*
     * Object class for all notifications. All notification cards will inherit from this class.
     *
     * */
-    public Notification (String title, String description, int notificationId,
-                         int notificationImage) {
+    public Notification (String title, String description, int notificationId) {
         this.title = title;
         this.description = description;
         this.notificationId = notificationId;
-        this.notificationImage = notificationImage;
 
         this.notificationType = "NOTIFICATION";
         //  Date Usage:
@@ -68,14 +62,6 @@ public abstract class Notification implements NotificationInterface{
 
     public void setNotificationDate(long notificationDate) {
         this.notificationDate = notificationDate;
-    }
-
-    public int getNotificationImage() {
-        return notificationImage;
-    }
-
-    public void setNotificationImage(int notificationImage) {
-        this.notificationImage = notificationImage;
     }
 
     public String getNotificationType() {

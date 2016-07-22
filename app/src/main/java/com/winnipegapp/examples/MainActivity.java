@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //  User creation
         DatabaseHelper db = DatabaseHelper.getInstance(this);
 
-        //db.deleteAll();
+        db.deleteAll();
 
         User testuser1 = new User(1, "Jessica Jones", "123 Main Street", "123 456", 1234567890, "A", "Tuesday", "badpassword");
 

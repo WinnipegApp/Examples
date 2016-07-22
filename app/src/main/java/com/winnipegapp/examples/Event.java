@@ -17,19 +17,21 @@ public class Event implements NotificationInterface{
     private String name;
     private String description;
     private String address;
+    private String event_image;
 
     //  Formats the date.
     private final SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
 
     public Event(){}
 
-    public Event(int event_id, long start_time, long end_time, String name, String description, String address) {
+    public Event(int event_id, long start_time, long end_time, String name, String description, String address, String event_image) {
         this.event_id = event_id;
         this.start_time = start_time;
         this.end_time = end_time;
         this.name = name;
         this.description = description;
         this.address = address;
+        this.event_image = event_image;
     }
 
     /*
@@ -145,7 +147,13 @@ public class Event implements NotificationInterface{
         this.address = address;
     }
 
+    public String getEvent_image() {
+        return event_image;
+    }
 
+    public void setEvent_image(String event_image) {
+        this.event_image = event_image;
+    }
 
     //endregion
 }

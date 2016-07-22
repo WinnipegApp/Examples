@@ -10,30 +10,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             >
-            <ImageView
-                android:id="@+id/notificationImage"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_alignParentTop="true"
-                android:layout_margin="8dp"
-
-                />
-            
-
-            <TextView
-                android:id="@+id/notificationDate"
-                android:layout_toRightOf="@id/notificationImage"
-                android:layout_alignParentTop="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textSize="16sp"
-                android:text="Date Goes Here"/>
 
             <TextView
                 android:id="@+id/notificationTitle"
-                android:layout_below="@+id/notificationDate"
-                android:layout_toRightOf="@+id/notificationImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
@@ -43,7 +22,6 @@
 
             <TextView
                 android:id="@+id/notificationDescription"
-                android:layout_below="@+id/notificationImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

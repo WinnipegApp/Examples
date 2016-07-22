@@ -1,16 +1,11 @@
 package com.winnipegapp.examples.Notifications.WeatherService;
 
-import android.app.DownloadManager;
 import android.os.AsyncTask;
 
-import com.google.android.gms.appdatasearch.GetRecentContextCall;
 import com.winnipegapp.examples.Notifications.Weather;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 
 /**

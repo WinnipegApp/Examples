@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.winnipegapp.examples.Notifications.*;
 import com.winnipegapp.examples.Notifications.Notification;
-import com.winnipegapp.examples.Notifications.WeatherService.PublicInquiryCard;
+import com.winnipegapp.examples.Notifications.PublicInquiryCard;
 
 
 import java.text.SimpleDateFormat;
@@ -129,15 +129,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 break;
             case EVENT:
                 EventCard eventCard = (EventCard) viewHolder;
-
+                configureEventCard(eventCard, position);
+            case PRIVATE_INQUIRY:
+                PrivateInquiryCard privateInquiryCard = (PrivateInquiryCard) viewHolder;
+                configurePrivateInquiryCard(privateInquiryCard, position);
+            case PUBLIC_INQUIRY:
+                PublicInquiryCard publicInquiryCard = (PublicInquiryCard) viewHolder;
+                configurePublicInquiryCard(publicInquiryCard, position);
         }
     }
 
     @Override
     public int getItemCount() { return notifications.size();}
-
-
-
 
     /*
     * Configures the title, description, and date of all notification cards.
@@ -151,7 +154,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             notificationCard.getNotificationTitle().setText(notification.getTitle());
             notificationCard.getNotificationDescription().setText(notification.getDescription());
             notificationCard.getNotificationDate().setText(dateString);
-            notificationCard.getNotificationImage().setImageResource(notification.getNotificationImage());
         }
     }
 
@@ -173,6 +175,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         Event event = (Event) notifications.get(position);
         if (event != null){
             configureNotificationCard(eventCard, position);
+        }
+    }
+    private void configurePrivateInquiryCard(PrivateInquiryCard privateInquiryCard, int position){
+        Inquiry inquiry = (Inquiry) notifications.get(position);
+        if (inquiry != null){
+            configureNotificationCard(privateInquiryCard, position);
+        }
+    }
+    private void configurePublicInquiryCard(PublicInquiryCard publicInquiryCard, int position){
+        PublicInquiry inquiry = (PublicInquiry) notifications.get(position);
+        if (inquiry != null){
+            configureNotificationCard(publicInquiryCard, position);
         }
     }
 

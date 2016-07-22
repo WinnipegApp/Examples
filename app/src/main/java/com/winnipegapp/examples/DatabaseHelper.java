@@ -14,85 +14,13 @@ import java.util.List;
  * Slightly updated by Mauricio on 2016-07-19
  */
 
-    //  Table creation in plain text.
-/*
-    Table creation assembly
-
-    CREATE TABLE IF NOT EXISTS DEVICE_NOTIFICATIONS
-    (
-        notification_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date INTEGER,
-        title TEXT,
-        description TEXT,
-        type TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS USERS
-    (
-        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        password TEXT,
-        full_name TEXT,
-        address TEXT,
-        postal_code TEXT,
-        mobile_no INTEGER,
-        snow_zone TEXT,
-        garbage_day TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS LOCATIONS
-    (
-        location_id PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        category TEXT,
-        coordinates NUMERIC
-    );
-
-    CREATE TABLE IF NOT EXISTS EVENTS
-    (
-        event_id INTEGER PRIMARY KEY,
-        start_time INTEGER,
-        end_time INTEGER,
-        name TEXT,
-        description TEXT,
-        address TEXT,
-        coordinates NUMERIC
-    );
-
-    CREATE TABLE IF NOT EXISTS INQUIRIES
-    (
-        inquiry_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        type TEXT,
-        description TEXT,
-        created_at TEXT, ** Changed to TEXT by Mauricio on 2016-07-19
-        postal_code TEXT,
-        city_zone TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS INQUIRY_UPDATES
-    (
-        inquiry_update_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        description TEXT,
-        date INTEGER,
-        status TEXT,
-        inquiry_id INTEGER
-    );
-
-    CREATE TABLE IF NOT EXISTS READINGS
-    (
-        reading_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date INTEGER,
-        type TEXT,
-        amount NUMERIC,
-    );
-*/
-
-
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
 
+    //<editor-fold desc="Table constants. Open at your own risk. ">
     //  Table names.
     public static final String TABLE_NOTIFICATIONS = "DEVICE_NOTIFICATIONS";
     public static final String TABLE_USERS = "USERS";
@@ -136,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_EVENTS_NAME = "name";
     public static final String COLUMN_EVENTS_DESCRIPTION = "description";
     public static final String COLUMN_EVENTS_ADDRESS = "address";
+    public static final String COLUMN_EVENTS_EVENT_IMAGE = "event_image";
 
     //  Inquiry column names.
     public static final String COLUMN_INQUIRIES_INQUIRY_ID = "inquiry_id";
@@ -200,7 +129,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_EVENTS_END_TIME + INTEGER_MODULE +
             COLUMN_EVENTS_NAME + TEXT_MODULE +
             COLUMN_EVENTS_DESCRIPTION + TEXT_MODULE +
-            COLUMN_EVENTS_ADDRESS + " TEXT)";
+            COLUMN_EVENTS_ADDRESS + TEXT_MODULE +
+            COLUMN_EVENTS_EVENT_IMAGE + " TEXT)";
 
     public static final String CREATE_TABLE_INQUIRIES =  CREATION_MODULE +
             TABLE_INQUIRIES + "(" +
@@ -226,6 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_READINGS_DATE + NUMERIC_MODULE +
             COLUMN_READINGS_TYPE + TEXT_MODULE +
             COLUMN_READINGS_AMOUNT + " NUMERIC)";
+    //</editor-fold>
 
     public static DatabaseHelper sInstance;
 
@@ -257,7 +188,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     * */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         dropTables(db);
         buildTables(db);
     }
@@ -535,6 +465,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_EVENTS_NAME, event.getName());
         values.put(COLUMN_EVENTS_DESCRIPTION, event.getDescription());
         values.put(COLUMN_EVENTS_ADDRESS, event.getAddress());
+        values.put(COLUMN_EVENTS_EVENT_IMAGE, event.getEvent_image());
 
         //  Inserts event into the database.
         db.insert(TABLE_EVENTS, null, values);
@@ -559,6 +490,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setName(cursor.getString(3));
                 event.setDescription(cursor.getString(4));
                 event.setAddress(cursor.getString(5));
+                event.setEvent_image(cursor.getString(6));
                 events.add(event);
             }while(cursor.moveToNext());
         }

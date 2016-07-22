@@ -5,7 +5,7 @@ package com.winnipegapp.examples.Notifications;
  */
 public class Warning extends Notification {
     public Warning(String title, String description, int notificationId, int notificationImage) {
-        super(title, description, notificationId, notificationImage);
+        super(title, description, notificationId);
         this.setNotificationType("WARNING");
     }
 

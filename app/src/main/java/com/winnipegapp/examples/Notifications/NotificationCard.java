@@ -13,7 +13,7 @@ import com.winnipegapp.examples.R;
 public class NotificationCard extends RecyclerView.ViewHolder {
 
     //  Field declaration
-    private ImageView notificationImage;
+
     private TextView notificationTitle;
     private TextView notificationDescription;
     private TextView notificationDate;
@@ -22,21 +22,13 @@ public class NotificationCard extends RecyclerView.ViewHolder {
     public NotificationCard(View itemView) {
         super(itemView);
     }{
-        notificationImage = (ImageView)itemView.findViewById(R.id.notificationImage);
+
         notificationTitle = (TextView) itemView.findViewById(R.id.notificationTitle);
         notificationDescription = (TextView) itemView.findViewById(R.id.notificationDescription);
         notificationDate = (TextView) itemView.findViewById(R.id.notificationDate);
     }
 
     //<editor-fold desc="Getters & Setters">
-    public ImageView getNotificationImage() {
-        return notificationImage;
-    }
-
-    public void setNotificationImage(ImageView notificationImage) {
-        this.notificationImage = notificationImage;
-    }
-
     public TextView getNotificationTitle() {
         return notificationTitle;
     }
