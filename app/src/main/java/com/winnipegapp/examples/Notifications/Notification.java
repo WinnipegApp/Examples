@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by Amari on 2016-06-14.
  */
-public abstract class Notification {
+public abstract class Notification implements NotificationInterface{
     //  Field declaration.
     private String title;
     private String description;
@@ -30,6 +30,11 @@ public abstract class Notification {
         //  Date Usage:
         //  SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a")
         this.notificationDate = System.currentTimeMillis();
+    }
+
+    @Override
+    public long fetchDate() {
+        return this.notificationDate;
     }
 
     //region Default getters and setters.

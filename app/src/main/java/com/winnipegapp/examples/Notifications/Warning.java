@@ -8,4 +8,9 @@ public class Warning extends Notification {
         super(title, description, notificationId, notificationImage);
         this.setNotificationType("WARNING");
     }
+
+    @Override
+    public int compareTo(Object another) {
+        return 1;
+    }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.winnipegapp.examples.Notifications.*;
 import com.winnipegapp.examples.Notifications.Notification;
+import com.winnipegapp.examples.Notifications.WeatherService.PublicInquiryCard;
 
 
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    List<Notification> notifications;
+    List<Object> notifications;
 
     //  enum values for determining what kind of view to instantiate.
     private final int
@@ -32,14 +33,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     EVENT = 2,
     PRIVATE_INQUIRY = 3,
     PUBLIC_INQUIRY = 4,
-    Announcement = 5,
-    Reminder = 6,
+    ANNOUNCEMENT = 5,
+    REMINDER = 6,
     CUSTOM = 7;
 
     /*
     *   Constructor for the Home adapter.
     * */
-    public HomeAdapter(List<Notification> notifications){
+    public HomeAdapter(List<Object> notifications){
         this.notifications = notifications;
     }
 
@@ -53,11 +54,21 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     * Used to derive what kind of view to create. Corresponds to the enums above.
     * */
     public int getItemViewType(int position){
+
         if (notifications.get(position) instanceof Warning){
             return WARNING;
         }
         else if (notifications.get(position) instanceof Weather){
             return WEATHER;
+        }
+        else if(notifications.get(position) instanceof Event){
+            return EVENT;
+        }
+        else if(notifications.get(position) instanceof  Inquiry){
+            return PRIVATE_INQUIRY;
+        }
+        else if(notifications.get(position) instanceof  PublicInquiry){
+            return PUBLIC_INQUIRY;
         }
 
         return -1;
@@ -80,6 +91,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             case WEATHER:
                 View v2 = inflater.inflate(R.layout.cardview_weather, viewGroup, false);
                 viewHolder = new WeatherCard(v2);
+                break;
+            case EVENT:
+                View v3 = inflater.inflate(R.layout.cardview_event, viewGroup, false);
+                viewHolder = new EventCard(v3);
+                break;
+            case PRIVATE_INQUIRY:
+                View v4 = inflater.inflate(R.layout.cardview_privateinquiry, viewGroup, false);
+                viewHolder = new PrivateInquiryCard(v4);
+                break;
+            case PUBLIC_INQUIRY:
+                View v5 = inflater.inflate(R.layout.cardview_publicinquiry, viewGroup, false);
+                viewHolder = new PublicInquiryCard(v5);
                 break;
             default:
                 View v = inflater.inflate(R.layout.notification_header, viewGroup, false);
@@ -104,6 +127,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 WeatherCard weatherCard = (WeatherCard) viewHolder;
                 configureWeatherCard(weatherCard, position);
                 break;
+            case EVENT:
+                EventCard eventCard = (EventCard) viewHolder;
+
         }
     }
 
@@ -117,7 +143,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     * Configures the title, description, and date of all notification cards.
     * */
     private void configureNotificationCard(NotificationCard notificationCard, int position){
-        Notification notification = notifications.get(position);
+        Notification notification = (Notification) notifications.get(position);
         if (notification != null){
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
             String dateString = sdf.format(notification.getNotificationDate());
@@ -137,13 +163,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             configureNotificationCard(warningCard, position);
         }
     }
-
     private void configureWeatherCard(WeatherCard weatherCard, int position){
         Weather weather = (Weather) notifications.get(position);
         if (weather != null){
             configureNotificationCard(weatherCard, position);
-
-
+        }
+    }
+    private void configureEventCard(EventCard eventCard, int position){
+        Event event = (Event) notifications.get(position);
+        if (event != null){
+            configureNotificationCard(eventCard, position);
         }
     }
 
