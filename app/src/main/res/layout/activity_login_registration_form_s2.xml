@@ -28,6 +28,20 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:background="#ffffff">
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
+
 
         <EditText
             android:layout_width="fill_parent"
@@ -43,7 +57,8 @@
             android:hint="Phone number"
             android:textColorHint="#6f6f6f"
             android:layout_marginTop="32dp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:singleLine="true"/>
 
         <EditText
             android:layout_width="180dp"
@@ -56,7 +71,8 @@
             android:layout_marginTop="24dp"
             android:hint="SMS Validation code"
             android:textColorHint="#6f6f6f"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:singleLine="true"/>
 
         <EditText
             android:layout_width="fill_parent"
@@ -72,7 +88,8 @@
             android:textColorHint="#6f6f6f"
             android:textColor="#000000"
             android:layout_marginTop="24dp"
-            android:layout_marginRight="8dp" />
+            android:layout_marginRight="8dp"
+            android:singleLine="true"/>
 
         <EditText
             android:layout_width="170dp"
@@ -86,7 +103,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="24dp"
             android:hint="Password"
-            android:textColorHint="#6f6f6f" />
+            android:textColorHint="#6f6f6f"
+            android:singleLine="true"/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -100,7 +118,8 @@
             android:layout_alignRight="@+id/editEmail"
             android:layout_alignEnd="@+id/editEmail"
             android:layout_toRightOf="@+id/editPassword"
-            android:layout_toEndOf="@+id/editPassword" />
+            android:layout_toEndOf="@+id/editPassword"
+            android:singleLine="true"/>
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -132,6 +151,31 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="32dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="#e4e4e4"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="< BACK"
+                android:textColor="#ff9500"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="24dp"
+                android:textSize="20dp"
+                android:layout_marginBottom="16dp"
+                android:id="@+id/textView5" />
+
+        </RelativeLayout>
+        </RelativeLayout>
+        </ScrollView>
 
     </RelativeLayout>
 

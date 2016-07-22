@@ -21,15 +21,29 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:background="#FFFFFF">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></RelativeLayout>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
+
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,7 +70,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="16dp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:singleLine="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,7 +98,8 @@
             android:textColorHint="#6f6f6f"
             android:textColor="#000000"
             android:layout_alignEnd="@+id/editText4"
-            android:layout_alignRight="@+id/editText4" />
+            android:layout_alignRight="@+id/editText4"
+            android:singleLine="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,6 +127,8 @@
             android:textColorHint="#6f6f6f"
             android:layout_marginLeft="16dp"
             android:textColor="#000000" />
+            android:textColor="#000000"
+            android:singleLine="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -167,6 +185,33 @@
             android:layout_marginTop="42dp" />
 
         />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="#e4e4e4"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEXT >"
+                android:textColor="#ff9500"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="24dp"
+                android:textSize="20dp"
+                android:layout_marginBottom="16dp"
+                android:id="@+id/textView55" />
+
+        </RelativeLayout>
+        </RelativeLayout>
+        </ScrollView>
+
+
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
