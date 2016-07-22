@@ -280,7 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         List<User> users = new ArrayList<>();
         String query = "SEELCT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USER_ID +
-                "= " + user_id;
+                " = " + user_id;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()){
