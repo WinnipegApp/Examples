@@ -1,5 +1,7 @@
 package com.winnipegapp.examples;
 
+import com.winnipegapp.examples.Notifications.NotificationInterface;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +9,7 @@ import java.util.Date;
 /**
  * Created by Amari on 2016-07-19.
  */
-public class Event {
+public class Event implements NotificationInterface{
 
     private int event_id;
     private long start_time;
@@ -70,6 +72,30 @@ public class Event {
         this.end_time = convertTime(time);
     }
 
+    /**
+    * Methods for sorting Events in the notification feed.
+     * */
+    @Override
+    public long fetchDate() {
+        return this.start_time;
+    }
+    @Override
+    public int compareTo(Object another) {
+
+        long time = ((NotificationInterface)another).fetchDate();
+
+        if (this.start_time == time){
+            return 0;
+        }
+        else if(this.start_time > time){
+            return 1;
+        }
+        else{
+            return -1;
+        }
+    }
+
+
     //region Default getters and setters.
     public int getEvent_id() {
         return event_id;
@@ -118,5 +144,8 @@ public class Event {
     public void setAddress(String address) {
         this.address = address;
     }
+
+
+
     //endregion
 }

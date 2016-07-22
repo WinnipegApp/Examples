@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by Amari on 2016-06-21.
  */
-public class Weather extends Notification{
+public class Weather extends Notification {
 
 
     public Weather(String title, String description, int notificationId, int notificationImage) {
@@ -16,4 +16,9 @@ public class Weather extends Notification{
     }
 
 
+    @Override
+    public int compareTo(Object another) {
+        if(another instanceof Warning ) return -1;
+        else return 1;
+    }
 }

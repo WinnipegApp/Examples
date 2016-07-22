@@ -2,6 +2,8 @@ package com.winnipegapp.examples;
 
 import android.location.Location;
 
+import com.winnipegapp.examples.Notifications.NotificationInterface;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,7 +14,7 @@ import java.util.Date;
  *
  * Slightly updated by Mauricio on 2016-07-19
  */
-public class Inquiry {
+public class Inquiry implements NotificationInterface{
     /*
     * Class for an Inquiry.
     * */
@@ -90,6 +92,28 @@ public class Inquiry {
         this.coordinates = location.getLatitude() + "," + location.getLongitude();
     }
 
+    /**
+    * Methods for reordering events in the notification feed.
+     * */
+    @Override
+    public long fetchDate() {
+        return this.created_at;
+    }
+    @Override
+    public int compareTo(Object another) {
+        long time = ((NotificationInterface)another).fetchDate();
+
+        if (this.created_at == time){
+            return 0;
+        }
+        else if(this.created_at > time){
+            return 1;
+        }
+        else{
+            return -1;
+        }
+    }
+
     //region Default getters and setters
     public int getInquiry_id() {
         return inquiry_id;
@@ -138,6 +162,7 @@ public class Inquiry {
     public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
     }
+
     //endregion
 
 }
