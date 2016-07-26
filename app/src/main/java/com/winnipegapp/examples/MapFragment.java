@@ -235,16 +235,29 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     private void initialiseData() {
 
+        /**
+        *  This method is incomplete (Mauricio)
+        *
+        *  It should create a List of Locations, retrieve from the helper (db) and
+        *  filter according to the selectedFilters.
+        *
+        *  It should be executed when the map starts, resumes and when closing the filter dialog (MapMenu)
+        *
+        * */
+
         if (mMap != null) {
 
             loadUserFilters("selectedFilters", getActivity());
 
         }
 
+        // Calls the database
         helper = DatabaseHelper.getInstance(getActivity());
 
+        // Creates dummy locations for testing (execute when you re-install the APK
         //createLocations();
 
+        // Creates and initialises the List
         List<LocationDetails> locations = new ArrayList<>();
 
         int j = helper.getLocations().size();
@@ -261,6 +274,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public boolean[] loadUserFilters(String arrayName, Context mContext) {
 
+        /**
+        *  Load filters from the phone Sharedpreferences
+        *
+        * */
+
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("selectedFilters", 0);
 
         int size = sharedPreferences.getInt(arrayName + "_size", 0);
@@ -276,6 +294,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     }
 
     public void createLocations() {
+
+        /**
+        *   Creates dummy locations to test the database
+        *
+        * */
 
         LocationDetails example0 = new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041");
         LocationDetails example1 = new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877");
