@@ -38,6 +38,8 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     LatLng currentPosition;
     final int MY_PERMISSION_REQUEST_ACCESS_LOCATION = 123;
 
+    final float ZOOMLEV = 14f;
+
     boolean gpsEnabled;
     boolean netWorkEnabled;
 
@@ -176,7 +178,12 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         for (String provider : providers) {
 
-            Location l = locationManager.getLastKnownLocation(provider);
+            Location l = null;
+            try {
+                l = locationManager.getLastKnownLocation(provider);
+            } catch (SecurityException se) {
+                se.printStackTrace();
+            }
 
             if (l == null) {
 
@@ -210,7 +217,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
             try {
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 14));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, ZOOMLEV));
 
             } catch (Exception e) {
 
