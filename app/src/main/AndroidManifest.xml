@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -33,13 +34,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAB5DGu4fJHARanDZRBNjmd07DdMb2CXVQ" />
-        <!-- Previous API Key (In case the one above doesn't work for you) -->
-        <!-- AIzaSyDHiUQ9jsgN-FIiTONw9VgVZ01XxmGvn9I" / -->
-
-
-        <!-- Backup of Current API Key -->
-        <!-- AIzaSyAB5DGu4fJHARanDZRBNjmd07DdMb2CXVQ/ -->
+            android:value="AIzaSyCrC55gdc136e8Y1MEln3u9lhQAq3qU3Ss" />
 
         <activity
             android:name=".MapFiltersActivity"
@@ -48,16 +43,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity
             android:name=".InquiryActivity"
             android:parentActivityName=".MainActivity" />
+
         <activity android:name=".UtilityReadingActivity" />
+
         <activity android:name=".EditProfileActivity" />
+
         <activity android:name=".MyProfileActivity" />
+
         <activity android:name=".LoginActivity" />
+
         <activity android:name=".LoginRegistrationFormS1" />
+
         <activity android:name=".LoginScanIdS1" />
+
         <activity android:name=".LoginRegistrationFormS2"></activity>
+
     </application>
 
 </manifest>
