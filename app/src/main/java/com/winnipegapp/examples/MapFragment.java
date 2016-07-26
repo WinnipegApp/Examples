@@ -21,8 +21,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.winnipegapp.examples.Notifications.Warning;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     private SupportMapFragment mapFragment;
     private boolean[] selectedFilters;
 
+    private DatabaseHelper dbh;
+    private List<LocationDetails> locations;
+
     LatLng currentPosition;
     final int MY_PERMISSION_REQUEST_ACCESS_LOCATION = 123;
 
@@ -45,8 +50,6 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     double latitude;
     double longitude;
-
-    DatabaseHelper helper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,8 +83,9 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         }
 
-        return rootView;
+        dbh = DatabaseHelper.getInstance(getContext());
 
+        return rootView;
     }
 
     @Override
@@ -100,6 +104,13 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         }
 
         mMap = googleMap;
+
+
+        for(int i = 0; i < locations.size(); i++) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(locations.get(i).getLatLng())
+                    .title(locations.get(i).getName()));
+        }
 
         // This method fetches the current location, assuming LocationServices are enabled.
         // If LocationServices not enabled then we should treat differently.
@@ -241,19 +252,11 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         }
 
-        helper = DatabaseHelper.getInstance(getActivity());
+        dbh = DatabaseHelper.getInstance(getActivity());
 
-        //createLocations();
+        createLocations();
 
-        List<LocationDetails> locations = new ArrayList<>();
-
-        int j = helper.getLocations().size();
-
-        for (int i = 0; i < j; i++) {
-
-            locations.add(helper.getLocations().get(i));
-
-        }
+        locations = dbh.getLocations();
 
 
 
@@ -277,13 +280,15 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public void createLocations() {
 
-        LocationDetails example0 = new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041");
-        LocationDetails example1 = new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877");
-        LocationDetails example2 = new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610");
-
-        helper.createLocation(example0);
-        helper.createLocation(example1);
-        helper.createLocation(example2);
+        dbh.createLocation(new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041"));
+        dbh.createLocation(new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877"));
+        dbh.createLocation(new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610"));
+        dbh.createLocation(new LocationDetails(9, "Pools", "Pan Am Pool", "49.8552751, -97.17289"));
+//        dbh.createLocation(new LocationDetails(4, "Pools", "Happyland Pool", "49.881564, -97.101610"));
+//        dbh.createLocation(new LocationDetails(5, "Pools", "Happyland Pool", "49.881564, -97.101610"));
+//        dbh.createLocation(new LocationDetails(6, "Pools", "Happyland Pool", "49.881564, -97.101610"));
+//        dbh.createLocation(new LocationDetails(7, "Pools", "Happyland Pool", "49.881564, -97.101610"));
+//        dbh.createLocation(new LocationDetails(8, "Pools", "Happyland Pool", "49.881564, -97.101610"));
 
     }
 

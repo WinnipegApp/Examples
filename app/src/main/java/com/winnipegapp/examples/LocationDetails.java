@@ -3,6 +3,8 @@ package com.winnipegapp.examples;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.sql.Array;
 import java.util.Arrays;
 
@@ -75,6 +77,18 @@ public class LocationDetails {
 
         location.setLatitude(Double.parseDouble(coordinateSet[0]));
         location.setLongitude(Double.parseDouble(coordinateSet[1]));
+
+        return  location;
+    }
+
+    /*
+    * Creates a Location from the coordinates in the database.
+    * */
+    public LatLng getLatLng(){
+
+        String[] coordinateSet = this.coordinates.toString().split(",");
+
+        LatLng location = new LatLng(Double.parseDouble(coordinateSet[0]),Double.parseDouble(coordinateSet[1]));
 
         return  location;
     }

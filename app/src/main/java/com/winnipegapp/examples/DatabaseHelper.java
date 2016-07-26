@@ -331,8 +331,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do{
                 LocationDetails location = new LocationDetails();
                 location.setLocation_id(Integer.parseInt(cursor.getString(0)));
-                location.setName(cursor.getString(1));
-                location.setCategory(cursor.getString(2));
+                location.setCategory(cursor.getString(1));
+                location.setName(cursor.getString(2));
                 location.setCoordinates(cursor.getString(3));
                 locations.add(location);
             }while (cursor.moveToNext());
