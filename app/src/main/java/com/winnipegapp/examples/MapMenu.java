@@ -70,11 +70,15 @@ public class MapMenu extends DialogFragment {
 
     public void initialiseData() {
 
-        if (selectedFilters == null)
+        loadUserFilters("selectedFilters", getActivity());
+
+        if (selectedFilters == null || selectedFilters.length == 0) {
 
             selectedFilters = new boolean[items.length];
 
-        loadUserFilters("selectedFilters", getActivity());
+            Arrays.fill(selectedFilters, true);
+
+        }
 
     }
 
