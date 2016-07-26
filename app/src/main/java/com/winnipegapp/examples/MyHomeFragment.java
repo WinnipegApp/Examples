@@ -57,11 +57,9 @@ public class MyHomeFragment extends Fragment {
 
         for (int i = 0; i < j; i++) {
 
-             notifications.add(new Warning(helper.getInquiries().get(i).getType(), helper.getInquiries().get(i).getDescription(),01, R.drawable.ic_placeholder));
+             // ** TO DO ** Add the database fetched object to the notification List
 
         }
-
-        //notifications.add(new Weather("23.3°C", "Partly Cloudy", 01, R.drawable.ic_partlycloudy));
 
     }
 }

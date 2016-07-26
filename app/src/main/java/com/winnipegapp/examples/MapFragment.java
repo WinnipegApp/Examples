@@ -15,20 +15,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.winnipegapp.examples.Notifications.Warning;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment implements android.location.LocationListener,OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private LocationManager locManager;
-    private Location locDetails;
+    private LocationManager locationManager;
+    private Location location;
     FloatingActionButton actionButton;
     private SupportMapFragment mapFragment;
     private boolean[] selectedFilters;
@@ -42,14 +44,16 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     double latitude;
     double longitude;
 
+    DatabaseHelper helper;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
-        locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        gpsEnabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        netWorkEnabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        netWorkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         selectedFilters = new boolean[4];
 
@@ -111,8 +115,6 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     }
 
-
-
     @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
@@ -128,8 +130,6 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     @Override
     public void onResume() {
         super.onResume();
-
-        initialiseData();
 
     }
 
@@ -170,23 +170,13 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     public Location getLastKnownLocation() {
 
         // Listing all provides, like GPS, Network, etc.
-        List<String> providers = locManager.getProviders(true);
+        List<String> providers = locationManager.getProviders(true);
 
         Location bestLocation = null;
 
         for (String provider : providers) {
 
-            Location l = null;
-
-            try {
-
-                l = locManager.getLastKnownLocation(provider);
-
-            } catch (SecurityException se) {
-
-                se.printStackTrace();
-
-            }
+            Location l = locationManager.getLastKnownLocation(provider);
 
             if (l == null) {
 
@@ -196,6 +186,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
             if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
 
+                // Found best last known location: %s", l);
                 bestLocation = l;
 
             }
@@ -208,18 +199,18 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public void getCurrentLocation() {
 
-        locDetails = getLastKnownLocation();
+        location = getLastKnownLocation();
 
-        if (locDetails != null) {
+        if (location != null) {
 
-            latitude = locDetails.getLatitude();
-            longitude = locDetails.getLongitude();
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
 
             currentPosition = new LatLng(latitude, longitude);
 
             try {
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 15));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 14));
 
             } catch (Exception e) {
 
@@ -227,11 +218,9 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
             }
 
-            Log.i("Map Location:", currentPosition.toString());
-
         } else {
 
-            Log.i("Location is Null:", "yes location is null!!!");
+            Log.i("locationIsNull:", "yes location is null!!!");
 
         }
 
@@ -244,6 +233,22 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             loadUserFilters("selectedFilters", getActivity());
 
         }
+
+        helper = DatabaseHelper.getInstance(getActivity());
+
+        //createLocations();
+
+        List<LocationDetails> locations = new ArrayList<>();
+
+        int j = helper.getLocations().size();
+
+        for (int i = 0; i < j; i++) {
+
+            locations.add(helper.getLocations().get(i));
+
+        }
+
+
 
     }
 
@@ -260,6 +265,18 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             selectedFilters[i] = sharedPreferences.getBoolean(arrayName + "_" + i, false);
 
         return selectedFilters;
+
+    }
+
+    public void createLocations() {
+
+        LocationDetails example0 = new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041");
+        LocationDetails example1 = new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877");
+        LocationDetails example2 = new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610");
+
+        helper.createLocation(example0);
+        helper.createLocation(example1);
+        helper.createLocation(example2);
 
     }
 
