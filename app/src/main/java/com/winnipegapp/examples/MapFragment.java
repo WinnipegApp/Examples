@@ -246,23 +246,57 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     private void initialiseData() {
 
+        /**
+        *  This method is incomplete (Mauricio)
+        *
+        *  It should create a List of Locations, retrieve from the helper (db) and
+        *  filter according to the selectedFilters.
+        *
+        *  It should be executed when the map starts, resumes and when closing the filter dialog (MapMenu)
+        *
+        * */
+
         if (mMap != null) {
 
             loadUserFilters("selectedFilters", getActivity());
 
         }
 
+<<<<<<< HEAD
         dbh = DatabaseHelper.getInstance(getActivity());
 
         createLocations();
 
         locations = dbh.getLocations();
+=======
+        // Calls the database
+        helper = DatabaseHelper.getInstance(getActivity());
+
+        // Creates dummy locations for testing (execute when you re-install the APK
+        //createLocations();
+
+        // Creates and initialises the List
+        List<LocationDetails> locations = new ArrayList<>();
+
+        int j = helper.getLocations().size();
+
+        for (int i = 0; i < j; i++) {
+
+            locations.add(helper.getLocations().get(i));
+
+        }
+>>>>>>> origin/master
 
 
 
     }
 
     public boolean[] loadUserFilters(String arrayName, Context mContext) {
+
+        /**
+        *  Load filters from the phone Sharedpreferences
+        *
+        * */
 
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("selectedFilters", 0);
 
@@ -280,6 +314,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public void createLocations() {
 
+<<<<<<< HEAD
         dbh.createLocation(new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041"));
         dbh.createLocation(new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877"));
         dbh.createLocation(new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610"));
@@ -289,6 +324,20 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 //        dbh.createLocation(new LocationDetails(6, "Pools", "Happyland Pool", "49.881564, -97.101610"));
 //        dbh.createLocation(new LocationDetails(7, "Pools", "Happyland Pool", "49.881564, -97.101610"));
 //        dbh.createLocation(new LocationDetails(8, "Pools", "Happyland Pool", "49.881564, -97.101610"));
+=======
+        /**
+        *   Creates dummy locations to test the database
+        *
+        * */
+
+        LocationDetails example0 = new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041");
+        LocationDetails example1 = new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877");
+        LocationDetails example2 = new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610");
+
+        helper.createLocation(example0);
+        helper.createLocation(example1);
+        helper.createLocation(example2);
+>>>>>>> origin/master
 
     }
 
