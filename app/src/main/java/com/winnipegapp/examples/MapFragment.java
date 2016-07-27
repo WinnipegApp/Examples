@@ -262,15 +262,13 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
         }
 
-<<<<<<< HEAD
         dbh = DatabaseHelper.getInstance(getActivity());
 
         createLocations();
 
         locations = dbh.getLocations();
-=======
         // Calls the database
-        helper = DatabaseHelper.getInstance(getActivity());
+        dbh = DatabaseHelper.getInstance(getActivity());
 
         // Creates dummy locations for testing (execute when you re-install the APK
         //createLocations();
@@ -278,16 +276,13 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         // Creates and initialises the List
         List<LocationDetails> locations = new ArrayList<>();
 
-        int j = helper.getLocations().size();
+        int j = dbh.getLocations().size();
 
         for (int i = 0; i < j; i++) {
 
-            locations.add(helper.getLocations().get(i));
+            locations.add(dbh.getLocations().get(i));
 
         }
->>>>>>> origin/master
-
-
 
     }
 
@@ -314,31 +309,24 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public void createLocations() {
 
-<<<<<<< HEAD
         dbh.createLocation(new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041"));
         dbh.createLocation(new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877"));
         dbh.createLocation(new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610"));
         dbh.createLocation(new LocationDetails(9, "Pools", "Pan Am Pool", "49.8552751, -97.17289"));
-//        dbh.createLocation(new LocationDetails(4, "Pools", "Happyland Pool", "49.881564, -97.101610"));
-//        dbh.createLocation(new LocationDetails(5, "Pools", "Happyland Pool", "49.881564, -97.101610"));
-//        dbh.createLocation(new LocationDetails(6, "Pools", "Happyland Pool", "49.881564, -97.101610"));
-//        dbh.createLocation(new LocationDetails(7, "Pools", "Happyland Pool", "49.881564, -97.101610"));
-//        dbh.createLocation(new LocationDetails(8, "Pools", "Happyland Pool", "49.881564, -97.101610"));
-=======
-        /**
-        *   Creates dummy locations to test the database
-        *
-        * */
+        dbh.createLocation(new LocationDetails(10, "Pools", "Seven Oaks Swimming Pool", "49.9541013, -97.1762658"));
+        dbh.createLocation(new LocationDetails(11, "Pools", "St James Civic Centre Pool", "49.885907, -97.2366956"));
+        dbh.createLocation(new LocationDetails(12, "Pools", "Kildonan Park Outdoor Pool", "49.9423885, -97.1048312"));
+        dbh.createLocation(new LocationDetails(13, "Pools", "Fort Garry Lion’s Outdoor Pool", "49.840571, -97.152733"));
+        dbh.createLocation(new LocationDetails(14, "Pools", "Westdale Outdoor Pool", "49.86125, -97.3177646"));
+        dbh.createLocation(new LocationDetails(15, "Pools", "Windsor Park Outdoor Pool", "49.8624316, -97.0749827"));
 
-        LocationDetails example0 = new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041");
-        LocationDetails example1 = new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877");
-        LocationDetails example2 = new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610");
+        dbh.createLocation(new LocationDetails(16, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
+        dbh.createLocation(new LocationDetails(17, "Golf Courses", "John Blumberg Golf Course", "49.8739363, -97.3590642"));
+        dbh.createLocation(new LocationDetails(18, "Golf Courses", "Breezy Bend Country Club", "49.856, -97.3735887"));
+//        dbh.createLocation(new LocationDetails(19, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
+//        dbh.createLocation(new LocationDetails(20, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
 
-        helper.createLocation(example0);
-        helper.createLocation(example1);
-        helper.createLocation(example2);
->>>>>>> origin/master
-
+//        dbh.createLocation(new LocationDetails(21, "Post Offices", "Tuxedo Golf Club", "49.863355, -97.2371127"));
+//        dbh.createLocation(new LocationDetails(22, "Post Offices", "Tuxedo Golf Club", "49.863355, -97.2371127"));
     }
-
 }
