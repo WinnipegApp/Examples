@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 8;
 
     //<editor-fold desc="Table constants. Open at your own risk. ">
     //  Table names.
@@ -118,8 +118,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE_LOCATIONS =  CREATION_MODULE +
             TABLE_LOCATIONS + "(" +
             COLUMN_LOCATIONS_LOCATION_ID + PRIMARY_KEY_MODULE +
-            COLUMN_LOCATIONS_CATEGORY + TEXT_MODULE +
             COLUMN_LOCATIONS_NAME + TEXT_MODULE +
+            COLUMN_LOCATIONS_CATEGORY + TEXT_MODULE +
             COLUMN_LOCATIONS_COORDINATES + " TEXT)";
 
     public static final String CREATE_TABLE_EVENTS =  CREATION_MODULE +
@@ -309,8 +309,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //  Appends data to column values.
         values.put(COLUMN_LOCATIONS_LOCATION_ID, locationDetail.getLocation_id());
-        values.put(COLUMN_LOCATIONS_CATEGORY, locationDetail.getCategory());
         values.put(COLUMN_LOCATIONS_NAME, locationDetail.getName());
+        values.put(COLUMN_LOCATIONS_CATEGORY, locationDetail.getCategory());
         values.put(COLUMN_LOCATIONS_COORDINATES, locationDetail.getCoordinates());
 
         //  Inserts into the database.
@@ -331,8 +331,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do{
                 LocationDetails location = new LocationDetails();
                 location.setLocation_id(Integer.parseInt(cursor.getString(0)));
-                location.setCategory(cursor.getString(1));
-                location.setName(cursor.getString(2));
+                location.setName(cursor.getString(1));
+                location.setCategory(cursor.getString(2));
                 location.setCoordinates(cursor.getString(3));
                 locations.add(location);
             }while (cursor.moveToNext());

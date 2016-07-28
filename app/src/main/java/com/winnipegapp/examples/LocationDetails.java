@@ -14,8 +14,8 @@ import java.util.Arrays;
 public class LocationDetails {
 
     private int location_id;
-    private String category;
     private String name;
+    private String category;
     private String coordinates;
 
     /*
@@ -65,6 +65,7 @@ public class LocationDetails {
     public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
     }
+
     //endregion
 
     /*
