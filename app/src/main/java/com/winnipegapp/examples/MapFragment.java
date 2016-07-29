@@ -2,8 +2,10 @@ package com.winnipegapp.examples;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -27,12 +29,13 @@ import com.winnipegapp.examples.Notifications.Warning;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MapFragment extends Fragment implements android.location.LocationListener,OnMapReadyCallback {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
-    private Location location;
+    private Location locDetails;
     FloatingActionButton actionButton;
     private SupportMapFragment mapFragment;
     private boolean[] selectedFilters;
@@ -43,7 +46,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     LatLng currentPosition;
     final int MY_PERMISSION_REQUEST_ACCESS_LOCATION = 123;
 
-    final float ZOOMLEV = 14f;
+    final float ZOOMLEV = 10f;
 
     boolean gpsEnabled;
     boolean netWorkEnabled;
@@ -111,6 +114,12 @@ public class MapFragment extends Fragment implements android.location.LocationLi
                     .position(locations.get(i).getLatLng())
                     .title(locations.get(i).getName()));
         }
+
+//        for(int i = 0; i >= locations.size(); i++){
+//            if(locDetails.getCategory().isChecked() == ){
+//
+//            }
+//        }
 
         // This method fetches the current location, assuming LocationServices are enabled.
         // If LocationServices not enabled then we should treat differently.
@@ -217,12 +226,12 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public void getCurrentLocation() {
 
-        location = getLastKnownLocation();
+        locDetails = getLastKnownLocation();
 
-        if (location != null) {
+        if (locDetails != null) {
 
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
+            latitude = locDetails.getLatitude();
+            longitude = locDetails.getLongitude();
 
             currentPosition = new LatLng(latitude, longitude);
 
@@ -323,10 +332,31 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         dbh.createLocation(new LocationDetails(16, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
         dbh.createLocation(new LocationDetails(17, "Golf Courses", "John Blumberg Golf Course", "49.8739363, -97.3590642"));
         dbh.createLocation(new LocationDetails(18, "Golf Courses", "Breezy Bend Country Club", "49.856, -97.3735887"));
-//        dbh.createLocation(new LocationDetails(19, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
-//        dbh.createLocation(new LocationDetails(20, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
+        dbh.createLocation(new LocationDetails(19, "Golf Courses", "Wildewood Golf Course", "49.848582, -97.1460917"));
+        dbh.createLocation(new LocationDetails(21, "Golf Courses", "Windsor Park Golf Course", "49.8599007, -97.1018567"));
+        dbh.createLocation(new LocationDetails(22, "Golf Courses", "Kildonan Park Golf Course", "49.9449835, -97.1131347"));
 
-//        dbh.createLocation(new LocationDetails(21, "Post Offices", "Tuxedo Golf Club", "49.863355, -97.2371127"));
-//        dbh.createLocation(new LocationDetails(22, "Post Offices", "Tuxedo Golf Club", "49.863355, -97.2371127"));
+        dbh.createLocation(new LocationDetails(23, "Post Offices", "Canada Post", "49.8068907,-97.2576962"));
+        dbh.createLocation(new LocationDetails(25, "Post Offices", "Canada Post", "49.8626939,-97.1571026"));
+        dbh.createLocation(new LocationDetails(26, "Post Offices", "Canada Post", "49.8674302,-97.2142367"));
+        dbh.createLocation(new LocationDetails(27, "Post Offices", "Canada Post ", "49.9089262,-97.1677456"));
+     //   dbh.createLocation(new LocationDetails(28, "Post Offices", "Canada Post", "49.8843777,-97.1718655"));
+//        dbh.createLocation(new LocationDetails(29, "Post Offices", "Canada Post", "49.8785362,-97.3077693"));
+//        dbh.createLocation(new LocationDetails(30, "Post Offices", "Canada Post", "49.8838378,-97.1487339"));
+
+        dbh.createLocation(new LocationDetails(31, "Emergency Rooms", "Grace Hospital", "49.8823448, -97.278943"));
+        dbh.createLocation(new LocationDetails(32, "Emergency Rooms", "Victoria General Hospital", "49.8067051, -97.1548719"));
+        dbh.createLocation(new LocationDetails(33, "Emergency Rooms", "Seven Oaks General Hospital", "49.954856, -97.1518657"));
+        dbh.createLocation(new LocationDetails(34, "Emergency Rooms", "Concordia Hospital", "49.9133456, -97.0666764"));
+        dbh.createLocation(new LocationDetails(35, "Emergency Rooms", "St. Boniface Hospital", "49.8841313, -97.1270477"));
+        dbh.createLocation(new LocationDetails(36, "Emergency Rooms", "Health Sciences Centre Winnipeg", "49.9030599, -97.1595927"));
+        dbh.createLocation(new LocationDetails(37, "Emergency Rooms", "Misericordia Health Centre (Urgent Care)", "49.8796316, -97.1626247"));
+
     }
+
+//    @Override
+//    protected void onHandleIntent(Intent intent) {
+//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+//    }
 }
+

@@ -62,6 +62,10 @@
 
         <activity android:name=".LoginRegistrationFormS2"></activity>
 
+        <!--<service-->
+            <!--android:name=".FetchAddressIntentService"-->
+            <!--android:exported="false"/>-->
+
     </application>
 
 </manifest>

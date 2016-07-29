@@ -253,7 +253,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<User> selectAllUsers(){
         SQLiteDatabase db = this.getReadableDatabase();
         List<User> users = new ArrayList<>();
-        String query = "SEELCT * FROM " + TABLE_USERS;
+        String query = "SELECT * FROM " + TABLE_USERS;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()){
@@ -279,7 +279,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<User> selectSpecificUser(int user_id){
         SQLiteDatabase db = this.getReadableDatabase();
         List<User> users = new ArrayList<>();
-        String query = "SEELCT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USER_ID +
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USER_ID +
                 " = " + user_id;
         Cursor cursor = db.rawQuery(query, null);
 
