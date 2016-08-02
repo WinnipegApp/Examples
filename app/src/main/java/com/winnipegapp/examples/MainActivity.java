@@ -15,17 +15,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    NavigationView navigationView;
+    Menu menu;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private TabLayout tabLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -44,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         User testuser1 = new User(1, "Jessica Jones", "123 Main Street", "123 456", 1234567890, "A", "Tuesday", "badpassword");
 
         db.createUser(testuser1);
+
+        Intent myIntent = getIntent();
+        boolean bValue = myIntent.getBooleanExtra("bMyUser", false);
 
     }
 
@@ -91,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         tabLayout.getTabAt(3).setIcon(R.drawable.map_inactive_128x128);
 
                         break;
-
                 }
 
             }
@@ -195,7 +201,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.settings) {
 
-            replaceFragment(new SettingsFragment());
+            //replaceFragment(new SettingsFragment());
+
+            //TEMPORARY
+            Intent intent = new Intent(MainActivity.this, MyProfileActivity.class);
+            startActivity(intent);
+
 
         } else if (id == R.id.about) {
 
@@ -232,7 +243,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void setupNavigationView(){
+    private void setupNavigationView()
+    {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
@@ -259,5 +271,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setBackgroundColor(tabLayoutColor);
 
     }
+
+
+
 
 }

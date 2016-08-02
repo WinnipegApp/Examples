@@ -5,7 +5,15 @@
             android:id="@+id/myprofile"
             android:icon="@drawable/ic_placeholder"
             android:title="My Profile"
+            android:visible="true" />
            />
+
+        <item
+            android:id="@+id/login"
+            android:icon="@drawable/ic_placeholder"
+            android:title="Log In"
+            android:visible="false" />
+
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_placeholder"
