@@ -19,7 +19,7 @@ import android.util.Log;
 public class MapMenu extends DialogFragment {
 
     boolean[] selectedFilters;
-    private CharSequence[] items = { "Emergency Rooms", "Pools", "Golf Courses", "Post Offices" };
+    private CharSequence[] items = { "Emergency Rooms", "Pools", "Golf Courses", "Libraries" };
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

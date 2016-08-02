@@ -10,12 +10,15 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.Switch;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,7 +49,12 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     LatLng currentPosition;
     final int MY_PERMISSION_REQUEST_ACCESS_LOCATION = 123;
 
-    final float ZOOMLEV = 10f;
+    final float ZOOMLEV = 13;
+
+    final int POOLS = 0;
+    final int GOLFCOURSES = 1;
+    final int LIBRARIES = 2;
+    final int EMERGENCYROOMS = 3;
 
     boolean gpsEnabled;
     boolean netWorkEnabled;
@@ -109,7 +117,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
         mMap = googleMap;
 
 
-        for(int i = 0; i < locations.size(); i++) {
+        for (int i = 0; i < locations.size(); i++) {
             mMap.addMarker(new MarkerOptions()
                     .position(locations.get(i).getLatLng())
                     .title(locations.get(i).getName()));
@@ -256,14 +264,14 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     private void initialiseData() {
 
         /**
-        *  This method is incomplete (Mauricio)
-        *
-        *  It should create a List of Locations, retrieve from the helper (db) and
-        *  filter according to the selectedFilters.
-        *
-        *  It should be executed when the map starts, resumes and when closing the filter dialog (MapMenu)
-        *
-        * */
+         *  This method is incomplete (Mauricio)
+         *
+         *  It should create a List of Locations, retrieve from the helper (db) and
+         *  filter according to the selectedFilters.
+         *
+         *  It should be executed when the map starts, resumes and when closing the filter dialog (MapMenu)
+         *
+         * */
 
         if (mMap != null) {
 
@@ -298,9 +306,9 @@ public class MapFragment extends Fragment implements android.location.LocationLi
     public boolean[] loadUserFilters(String arrayName, Context mContext) {
 
         /**
-        *  Load filters from the phone Sharedpreferences
-        *
-        * */
+         *  Load filters from the phone Sharedpreferences
+         *
+         * */
 
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("selectedFilters", 0);
 
@@ -318,45 +326,87 @@ public class MapFragment extends Fragment implements android.location.LocationLi
 
     public void createLocations() {
 
+
         dbh.createLocation(new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041"));
         dbh.createLocation(new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877"));
         dbh.createLocation(new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610"));
-        dbh.createLocation(new LocationDetails(9, "Pools", "Pan Am Pool", "49.8552751, -97.17289"));
-        dbh.createLocation(new LocationDetails(10, "Pools", "Seven Oaks Swimming Pool", "49.9541013, -97.1762658"));
-        dbh.createLocation(new LocationDetails(11, "Pools", "St James Civic Centre Pool", "49.885907, -97.2366956"));
-        dbh.createLocation(new LocationDetails(12, "Pools", "Kildonan Park Outdoor Pool", "49.9423885, -97.1048312"));
-        dbh.createLocation(new LocationDetails(13, "Pools", "Fort Garry Lion’s Outdoor Pool", "49.840571, -97.152733"));
-        dbh.createLocation(new LocationDetails(14, "Pools", "Westdale Outdoor Pool", "49.86125, -97.3177646"));
-        dbh.createLocation(new LocationDetails(15, "Pools", "Windsor Park Outdoor Pool", "49.8624316, -97.0749827"));
+        dbh.createLocation(new LocationDetails(3, "Pools", "Pan Am Pool", "49.8552751, -97.17289"));
+        dbh.createLocation(new LocationDetails(4, "Pools", "Seven Oaks Swimming Pool", "49.9541013, -97.1762658"));
+        dbh.createLocation(new LocationDetails(5, "Pools", "St James Civic Centre Pool", "49.885907, -97.2366956"));
+        dbh.createLocation(new LocationDetails(6, "Pools", "Kildonan Park Outdoor Pool", "49.9423885, -97.1048312"));
+        dbh.createLocation(new LocationDetails(7, "Pools", "Fort Garry Lion’s Outdoor Pool", "49.840571, -97.152733"));
+        dbh.createLocation(new LocationDetails(8, "Pools", "Westdale Outdoor Pool", "49.86125, -97.3177646"));
+        dbh.createLocation(new LocationDetails(9, "Pools", "Windsor Park Outdoor Pool", "49.8624316, -97.0749827"));
 
-        dbh.createLocation(new LocationDetails(16, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
-        dbh.createLocation(new LocationDetails(17, "Golf Courses", "John Blumberg Golf Course", "49.8739363, -97.3590642"));
-        dbh.createLocation(new LocationDetails(18, "Golf Courses", "Breezy Bend Country Club", "49.856, -97.3735887"));
-        dbh.createLocation(new LocationDetails(19, "Golf Courses", "Wildewood Golf Course", "49.848582, -97.1460917"));
-        dbh.createLocation(new LocationDetails(21, "Golf Courses", "Windsor Park Golf Course", "49.8599007, -97.1018567"));
-        dbh.createLocation(new LocationDetails(22, "Golf Courses", "Kildonan Park Golf Course", "49.9449835, -97.1131347"));
+        dbh.createLocation(new LocationDetails(10, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
+        dbh.createLocation(new LocationDetails(11, "Golf Courses", "John Blumberg Golf Course", "49.8739363, -97.3590642"));
+        dbh.createLocation(new LocationDetails(12, "Golf Courses", "Breezy Bend Country Club", "49.856, -97.3735887"));
+        dbh.createLocation(new LocationDetails(13, "Golf Courses", "Wildewood Golf Course", "49.848582, -97.1460917"));
+        dbh.createLocation(new LocationDetails(14, "Golf Courses", "Windsor Park Golf Course", "49.8599007, -97.1018567"));
+        dbh.createLocation(new LocationDetails(15, "Golf Courses", "Kildonan Park Golf Course", "49.9449835, -97.1131347"));
 
-        dbh.createLocation(new LocationDetails(23, "Post Offices", "Canada Post", "49.8068907,-97.2576962"));
-        dbh.createLocation(new LocationDetails(25, "Post Offices", "Canada Post", "49.8626939,-97.1571026"));
-        dbh.createLocation(new LocationDetails(26, "Post Offices", "Canada Post", "49.8674302,-97.2142367"));
-        dbh.createLocation(new LocationDetails(27, "Post Offices", "Canada Post ", "49.9089262,-97.1677456"));
-     //   dbh.createLocation(new LocationDetails(28, "Post Offices", "Canada Post", "49.8843777,-97.1718655"));
-//        dbh.createLocation(new LocationDetails(29, "Post Offices", "Canada Post", "49.8785362,-97.3077693"));
-//        dbh.createLocation(new LocationDetails(30, "Post Offices", "Canada Post", "49.8838378,-97.1487339"));
+        dbh.createLocation(new LocationDetails(16, "Libraries", "Westwood Library", "49.878315, -97.3054427"));
+        dbh.createLocation(new LocationDetails(17, "Libraries", "Millennium Library", "49.891972, -97.1443457"));
+        dbh.createLocation(new LocationDetails(18, "Libraries", "Charleswood Library", "49.857063, -97.2859897"));
+        dbh.createLocation(new LocationDetails(19, "Libraries", "Windsor Park Library", "49.8610378, -97.0795467"));
+        dbh.createLocation(new LocationDetails(20, "Libraries", "St. Boniface Library", "49.891681, -97.1271166"));
+        dbh.createLocation(new LocationDetails(21, "Libraries", "Transcona Library", "49.896123, -97.0057897"));
+        dbh.createLocation(new LocationDetails(22, "Libraries", "St. Vital Library", "49.851979,-97.1155597"));
+        dbh.createLocation(new LocationDetails(23, "Libraries", "Henderson Library", "49.9362452,-97.0968456"));
 
-        dbh.createLocation(new LocationDetails(31, "Emergency Rooms", "Grace Hospital", "49.8823448, -97.278943"));
-        dbh.createLocation(new LocationDetails(32, "Emergency Rooms", "Victoria General Hospital", "49.8067051, -97.1548719"));
-        dbh.createLocation(new LocationDetails(33, "Emergency Rooms", "Seven Oaks General Hospital", "49.954856, -97.1518657"));
-        dbh.createLocation(new LocationDetails(34, "Emergency Rooms", "Concordia Hospital", "49.9133456, -97.0666764"));
-        dbh.createLocation(new LocationDetails(35, "Emergency Rooms", "St. Boniface Hospital", "49.8841313, -97.1270477"));
-        dbh.createLocation(new LocationDetails(36, "Emergency Rooms", "Health Sciences Centre Winnipeg", "49.9030599, -97.1595927"));
-        dbh.createLocation(new LocationDetails(37, "Emergency Rooms", "Misericordia Health Centre (Urgent Care)", "49.8796316, -97.1626247"));
+        dbh.createLocation(new LocationDetails(24, "Emergency Rooms", "Grace Hospital", "49.8823448, -97.278943"));
+        dbh.createLocation(new LocationDetails(25, "Emergency Rooms", "Victoria General Hospital", "49.8067051, -97.1548719"));
+        dbh.createLocation(new LocationDetails(26, "Emergency Rooms", "Seven Oaks General Hospital", "49.954856, -97.1518657"));
+        dbh.createLocation(new LocationDetails(27, "Emergency Rooms", "Concordia Hospital", "49.9133456, -97.0666764"));
+        dbh.createLocation(new LocationDetails(28, "Emergency Rooms", "St. Boniface Hospital", "49.8841313, -97.1270477"));
+        dbh.createLocation(new LocationDetails(29, "Emergency Rooms", "Health Sciences Centre Winnipeg", "49.9030599, -97.1595927"));
+        dbh.createLocation(new LocationDetails(30, "Emergency Rooms", "Misericordia Health Centre (Urgent Care)", "49.8796316, -97.1626247"));
 
+//        switch () {
+//
+//            case POOLS:
+//                dbh.createLocation(new LocationDetails(0, "Pools", "St. Vital Pool", "49.859372, -97.100041"));
+//                dbh.createLocation(new LocationDetails(1, "Pools", "Provencher Pool", "49.890665, -97.117877"));
+//                dbh.createLocation(new LocationDetails(2, "Pools", "Happyland Pool", "49.881564, -97.101610"));
+//                dbh.createLocation(new LocationDetails(3, "Pools", "Pan Am Pool", "49.8552751, -97.17289"));
+//                dbh.createLocation(new LocationDetails(4, "Pools", "Seven Oaks Swimming Pool", "49.9541013, -97.1762658"));
+//                dbh.createLocation(new LocationDetails(5, "Pools", "St James Civic Centre Pool", "49.885907, -97.2366956"));
+//                dbh.createLocation(new LocationDetails(6, "Pools", "Kildonan Park Outdoor Pool", "49.9423885, -97.1048312"));
+//                dbh.createLocation(new LocationDetails(7, "Pools", "Fort Garry Lion’s Outdoor Pool", "49.840571, -97.152733"));
+//                dbh.createLocation(new LocationDetails(8, "Pools", "Westdale Outdoor Pool", "49.86125, -97.3177646"));
+//                dbh.createLocation(new LocationDetails(9, "Pools", "Windsor Park Outdoor Pool", "49.8624316, -97.0749827"));
+//                break;
+//            case GOLFCOURSES:
+//                dbh.createLocation(new LocationDetails(10, "Golf Courses", "Tuxedo Golf Club", "49.863355, -97.2371127"));
+//                dbh.createLocation(new LocationDetails(11, "Golf Courses", "John Blumberg Golf Course", "49.8739363, -97.3590642"));
+//                dbh.createLocation(new LocationDetails(12, "Golf Courses", "Breezy Bend Country Club", "49.856, -97.3735887"));
+//                dbh.createLocation(new LocationDetails(13, "Golf Courses", "Wildewood Golf Course", "49.848582, -97.1460917"));
+//                dbh.createLocation(new LocationDetails(14, "Golf Courses", "Windsor Park Golf Course", "49.8599007, -97.1018567"));
+//                dbh.createLocation(new LocationDetails(15, "Golf Courses", "Kildonan Park Golf Course", "49.9449835, -97.1131347"));
+//                break;
+//            case LIBRARIES:
+//                dbh.createLocation(new LocationDetails(16, "Libraries", "Westwood Library", "49.878315, -97.3054427"));
+//                dbh.createLocation(new LocationDetails(17, "Libraries", "Millennium Library", "49.891972, -97.1443457"));
+//                dbh.createLocation(new LocationDetails(18, "Libraries", "Charleswood Library", "49.857063, -97.2859897"));
+//                dbh.createLocation(new LocationDetails(19, "Libraries", "Windsor Park Library", "49.8610378, -97.0795467"));
+//                dbh.createLocation(new LocationDetails(20, "Libraries", "St. Boniface Library", "49.891681, -97.1271166"));
+//                dbh.createLocation(new LocationDetails(21, "Libraries", "Transcona Library", "49.896123, -97.0057897"));
+//                dbh.createLocation(new LocationDetails(22, "Libraries", "St. Vital Library", "49.851979,-97.1155597"));
+//                dbh.createLocation(new LocationDetails(23, "Libraries", "Henderson Library", "49.9362452,-97.0968456"));
+//                break;
+//            case EMERGENCYROOMS:
+//                dbh.createLocation(new LocationDetails(24, "Emergency Rooms", "Grace Hospital", "49.8823448, -97.278943"));
+//                dbh.createLocation(new LocationDetails(25, "Emergency Rooms", "Victoria General Hospital", "49.8067051, -97.1548719"));
+//                dbh.createLocation(new LocationDetails(26, "Emergency Rooms", "Seven Oaks General Hospital", "49.954856, -97.1518657"));
+//                dbh.createLocation(new LocationDetails(27, "Emergency Rooms", "Concordia Hospital", "49.9133456, -97.0666764"));
+//                dbh.createLocation(new LocationDetails(28, "Emergency Rooms", "St. Boniface Hospital", "49.8841313, -97.1270477"));
+//                dbh.createLocation(new LocationDetails(29, "Emergency Rooms", "Health Sciences Centre Winnipeg", "49.9030599, -97.1595927"));
+//                dbh.createLocation(new LocationDetails(30, "Emergency Rooms", "Misericordia Health Centre (Urgent Care)", "49.8796316, -97.1626247"));
+//                break;
+//        }
+
+//        if(POOLS == .isChecked()){
+//
+//        }
     }
-
-//    @Override
-//    protected void onHandleIntent(Intent intent) {
-//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-//    }
 }
-

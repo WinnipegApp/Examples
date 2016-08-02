@@ -37,14 +37,6 @@
             android:value="AIzaSyCrC55gdc136e8Y1MEln3u9lhQAq3qU3Ss" />
 
         <activity
-            android:name=".MapFiltersActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <activity
             android:name=".InquiryActivity"
             android:parentActivityName=".MainActivity" />
 
@@ -61,10 +53,6 @@
         <activity android:name=".LoginScanIdS1" />
 
         <activity android:name=".LoginRegistrationFormS2"></activity>
-
-        <!--<service-->
-            <!--android:name=".FetchAddressIntentService"-->
-            <!--android:exported="false"/>-->
 
     </application>
 
