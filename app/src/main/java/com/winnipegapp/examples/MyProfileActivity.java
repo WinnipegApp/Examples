@@ -64,6 +64,10 @@ public class MyProfileActivity extends AppCompatActivity {
     }
     private void InitializeProfile()
     {
+
+        Intent mIntent = getIntent();
+        String sValue = mIntent.getStringExtra("testUserId");
+
         DatabaseHelper helper = DatabaseHelper.getInstance(this);
         User user1 = helper.selectSpecificUser(1).get(0);
 
@@ -74,7 +78,7 @@ public class MyProfileActivity extends AppCompatActivity {
         txtPostal = (TextView)findViewById(R.id.textPostal);
         txtSnowZone = (TextView)findViewById(R.id.textSnowZone);
 
-        txtName.setText(user1.getFull_name());
+        txtName.setText(sValue);
         txtAddress.setText(user1.getAddress());
         txtPhone.setText(Integer.toString(user1.getMobile_no()));
         txtEmail.setText("jjones.gmail");

@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db.deleteAll();
 
         User testuser1 = new User(1, "Jessica Jones", "123 Main Street", "123 456", 1234567890, "A", "Tuesday", "badpassword");
-
         db.createUser(testuser1);
 
         Intent myIntent = getIntent();
@@ -204,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //replaceFragment(new SettingsFragment());
 
             //TEMPORARY
-            Intent intent = new Intent(MainActivity.this, MyProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
 
 
