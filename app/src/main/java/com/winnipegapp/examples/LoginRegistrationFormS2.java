@@ -1,5 +1,6 @@
 package com.winnipegapp.examples;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class LoginRegistrationFormS2 extends AppCompatActivity
 {
@@ -19,6 +23,7 @@ public class LoginRegistrationFormS2 extends AppCompatActivity
     Button buttonSignup;
     EditText inputTxtPassword, inputTxtConfirmPass, inputTxtNumber, inputTxtCode, inputTxtEmail;
     Toolbar toolbar;
+    TextView backBUtton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,6 +40,7 @@ public class LoginRegistrationFormS2 extends AppCompatActivity
         inputTxtCode = (EditText)findViewById(R.id.editCode);
         inputTxtEmail = (EditText)findViewById(R.id.editEmail);
         checkBoxPassword = (CheckBox)findViewById(R.id.passwordCheck);
+        backBUtton = (TextView)findViewById(R.id.backTextView);
 
         inputTxtNumber.getBackground().mutate().setColorFilter(getResources().getColor(R.color.color_editText_bottom), PorterDuff.Mode.SRC_ATOP);
 
@@ -89,6 +95,23 @@ public class LoginRegistrationFormS2 extends AppCompatActivity
                     inputTxtPassword.setInputType(129);
                     inputTxtConfirmPass.setInputType(129);
                 }
+            }
+        });
+
+        backBUtton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                startActivity(new Intent(LoginRegistrationFormS2.this, LoginRegistrationFormS1.class));
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(LoginRegistrationFormS2.this, LoginActivity.class));
             }
         });
 

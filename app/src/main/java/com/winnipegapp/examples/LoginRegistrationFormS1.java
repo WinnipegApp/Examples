@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class LoginRegistrationFormS1 extends AppCompatActivity
 {
     Toolbar toolbar;
     Button btnScanId;
+    TextView nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,6 +24,7 @@ public class LoginRegistrationFormS1 extends AppCompatActivity
         setupToolbar();
 
         btnScanId = (Button)findViewById(R.id.buttonScanId);
+        nextButton = (TextView)findViewById(R.id.nextTextView);
 
         btnScanId.setOnClickListener(new View.OnClickListener()
         {
@@ -29,6 +32,23 @@ public class LoginRegistrationFormS1 extends AppCompatActivity
             public void onClick(View v)
             {
                 startActivity(new Intent(LoginRegistrationFormS1.this, LoginScanIdS1.class));
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                startActivity(new Intent(LoginRegistrationFormS1.this, LoginRegistrationFormS2.class));
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(LoginRegistrationFormS1.this, LoginActivity.class));
             }
         });
     }
