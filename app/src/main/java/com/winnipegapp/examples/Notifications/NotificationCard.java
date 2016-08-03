@@ -17,6 +17,7 @@ public class NotificationCard extends RecyclerView.ViewHolder {
     private TextView notificationTitle;
     private TextView notificationDescription;
     private TextView notificationDate;
+    protected TextView notificationType;
 
 
     public NotificationCard(View itemView) {
@@ -26,6 +27,7 @@ public class NotificationCard extends RecyclerView.ViewHolder {
         notificationTitle = (TextView) itemView.findViewById(R.id.notificationTitle);
         notificationDescription = (TextView) itemView.findViewById(R.id.notificationDescription);
         notificationDate = (TextView) itemView.findViewById(R.id.notificationDate);
+        notificationType = (TextView) itemView.findViewById(R.id.notificationType);
     }
 
     //<editor-fold desc="Getters & Setters">
@@ -52,5 +54,14 @@ public class NotificationCard extends RecyclerView.ViewHolder {
     public void setNotificationDate(TextView notificationDate) {
         this.notificationDate = notificationDate;
     }
+
+    public TextView getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(TextView notificationType) {
+        this.notificationType = notificationType;
+    }
+
     //</editor-fold>
 }

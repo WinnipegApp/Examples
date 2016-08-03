@@ -10,5 +10,9 @@ import com.winnipegapp.examples.Notifications.NotificationCard;
 public class PublicInquiryCard extends NotificationCard {
     public PublicInquiryCard(View itemView) {
         super(itemView);
+
+        this.getNotificationType().setText("Inquiry");
     }
+
+
 }

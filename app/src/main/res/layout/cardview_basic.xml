@@ -42,6 +42,16 @@
                 android:layout_below="@+id/notificationHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+            <include layout = "@layout/notification_date"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/include"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -1,11 +1,12 @@
 package com.winnipegapp.examples;
 
+import com.winnipegapp.examples.Notifications.Notification;
 import com.winnipegapp.examples.Notifications.NotificationInterface;
 
 /**
  * Created by Amari on 2016-07-20.
  */
-public class PublicInquiry implements NotificationInterface {
+public class PublicInquiry extends Notification implements NotificationInterface {
 
     private long date;
 

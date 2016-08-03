@@ -2,6 +2,7 @@ package com.winnipegapp.examples;
 
 import android.location.Location;
 
+import com.winnipegapp.examples.Notifications.Notification;
 import com.winnipegapp.examples.Notifications.NotificationInterface;
 
 import java.text.ParseException;
@@ -14,7 +15,7 @@ import java.util.Date;
  *
  * Slightly updated by Mauricio on 2016-07-19
  */
-public class Inquiry implements NotificationInterface{
+public class Inquiry extends Notification implements NotificationInterface{
     /*
     * Class for an Inquiry.
     * */

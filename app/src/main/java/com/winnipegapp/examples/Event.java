@@ -1,15 +1,17 @@
 package com.winnipegapp.examples;
 
+import com.winnipegapp.examples.Notifications.Notification;
 import com.winnipegapp.examples.Notifications.NotificationInterface;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Amari on 2016-07-19.
  */
-public class Event implements NotificationInterface{
+public class Event extends Notification implements NotificationInterface{
 
     private int event_id;
     private long start_time;
@@ -24,6 +26,18 @@ public class Event implements NotificationInterface{
 
     public Event(){}
 
+    /**
+     * Constructor that omits the image and end time.
+     * */
+    public Event(int event_id,  String name, String description, String address) {
+        this.event_id = event_id;
+        this.start_time = generateRandomTime();
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
+
+
     public Event(int event_id, long start_time, long end_time, String name, String description, String address, String event_image) {
         this.event_id = event_id;
         this.start_time = start_time;
@@ -32,6 +46,55 @@ public class Event implements NotificationInterface{
         this.description = description;
         this.address = address;
         this.event_image = event_image;
+    }
+
+    /**
+     * Returns a psuedo-random number between min and max, inclusive.
+     * The difference between min and max can be at most
+     * <code>Integer.MAX_VALUE - 1</code>.
+     *
+     * @param min Minimim value
+     * @param max Maximim value.  Must be greater than min.
+     * @return Integer between min and max, inclusive.
+     * @see java.util.Random#nextInt(int)
+     */
+    public static int randInt(int min, int max) {
+
+        // Usually this can be a field rather than a method variable
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
+    public long generateRandomTime(){
+        long currentDate = System.currentTimeMillis();
+
+        return currentDate + ( 1+ (randInt(100000000, 1000000000)));
+
+    }
+
+    /**
+     * For the purposes of generating realistic hours for fake events.*/
+    public String cheatHours(){
+
+
+        int hours = (8 + randInt(0, 12));
+        String result = hours + ":00";
+
+        try {
+            SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+            Date _24HourDt = _24HourSDF.parse(result);
+            return _12HourSDF.format(_24HourDt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /*
@@ -74,6 +137,14 @@ public class Event implements NotificationInterface{
         this.end_time = convertTime(time);
     }
 
+    public String getHour(){
+        SimpleDateFormat hour = new SimpleDateFormat("h:mm a");
+
+        return hour.format(this.start_time);
+
+    }
+
+
     /**
     * Methods for sorting Events in the notification feed.
      * */
@@ -96,6 +167,8 @@ public class Event implements NotificationInterface{
             return -1;
         }
     }
+
+
 
 
     //region Default getters and setters.

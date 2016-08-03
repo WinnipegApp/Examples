@@ -14,6 +14,7 @@ import com.winnipegapp.examples.Notifications.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class MyHomeFragment extends Fragment {
@@ -64,7 +65,64 @@ public class MyHomeFragment extends Fragment {
                 "Environment Canada meteorologists are tracking what they describe as a " +
                         "severe thunderstorm that may produce a tornado in southern Manitoba.", 01);
 
+        Event event01 = new Event(01, "First Fridays in the Exchange",
+                "FIRST FRIDAYS is a great way to get to know the Exchange District every 1st " +
+                        "Friday of each month, all year round. Make a night of it-enjoy " +
+                        "supper at a great café, talk to artists in their studios, attend Gallery" +
+                        "openings and explore the unique shops. Step into your culture zone & come" +
+                        " for a walk in Winnipeg's original downtown!", "123 Someplace");
+
+        Event event02 = new Event(02, "Oviloo Tunnillie", "This exhibition is the first" +
+                " retrospective of work by Oviloo Tunnillie (1949-2014), one of the most" +
+                " respected Inuit sculptors from the Canadian Arctic. Bringing together some" +
+                " 60 sculptures from private and museum collections in Canada and the US, the " +
+                "development of her work is surveyed from the typical genre of finely-crafted " +
+                "birds and animals in the 1970s, to her exploration of social issues in the 1980s, " +
+                "to autobiographical themes in the 1990s.", "456 Somewhere");
+
+        Event event03 = new Event(03,"Chagall", "Russian-born artist Marc Chagall was a pioneer of" +
+                " modernism. Picasso proclaimed that after Matisse, \"Chagall will be the only " +
+                "painter left who understands what colour really is.”Daphnis & Chloé, the latest" +
+                " NGC@WAG collaboration, features 42 lithograph prints that showcase Chagall’s " +
+                "unique style. Widely considered the crowning achievement of his career as a " +
+                "printmaker, the series depicts the semi-erotic tale written by the Greek poet," +
+                " Longus. Chagall created these colourful pieces in the 1950s, inspired by the" +
+                " great love of his life, Valentina.", "789 Main");
+
+
         notifications.add(warning);
+        notifications.add(event01);
+        notifications.add(event02);
+        notifications.add(event03);
+
+    }
+
+    /**
+     * Returns a psuedo-random number between min and max, inclusive.
+     * The difference between min and max can be at most
+     * <code>Integer.MAX_VALUE - 1</code>.
+     *
+     * @param min Minimim value
+     * @param max Maximim value.  Must be greater than min.
+     * @return Integer between min and max, inclusive.
+     * @see java.util.Random#nextInt(int)
+     */
+    public static int randInt(int min, int max) {
+
+        // Usually this can be a field rather than a method variable
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
+    public long generateRandomTime(){
+        long currentDate = System.currentTimeMillis();
+
+        return currentDate + ( 1+ (randInt(100000, 1000000)));
 
     }
 }

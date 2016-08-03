@@ -105,7 +105,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 viewHolder = new PublicInquiryCard(v5);
                 break;
             default:
-                View v = inflater.inflate(R.layout.cardview_template, viewGroup, false);
+                View v = inflater.inflate(R.layout.cardview_basic, viewGroup, false);
                 viewHolder = new NotificationCard(v);
                 break;
         }
@@ -130,12 +130,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             case EVENT:
                 EventCard eventCard = (EventCard) viewHolder;
                 configureEventCard(eventCard, position);
+                break;
             case PRIVATE_INQUIRY:
                 PrivateInquiryCard privateInquiryCard = (PrivateInquiryCard) viewHolder;
                 configurePrivateInquiryCard(privateInquiryCard, position);
+                break;
             case PUBLIC_INQUIRY:
                 PublicInquiryCard publicInquiryCard = (PublicInquiryCard) viewHolder;
                 configurePublicInquiryCard(publicInquiryCard, position);
+                break;
         }
     }
 
@@ -184,7 +187,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private void configureEventCard(EventCard eventCard, int position){
         Event event = (Event) notifications.get(position);
         if (event != null){
-            configureNotificationCard(eventCard, position);
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+            String dateString = sdf.format(event.getStart_time());
+
+            eventCard.getNotificationTitle().setText(event.getName());
+            eventCard.getNotificationDescription().setText(event.getDescription());
+            eventCard.getNotificationDate().setText(dateString);
+            eventCard.getNotificationTime().setText(event.cheatHours());
+            eventCard.getNotificationType().setText("Event");
         }
     }
     private void configurePrivateInquiryCard(PrivateInquiryCard privateInquiryCard, int position){

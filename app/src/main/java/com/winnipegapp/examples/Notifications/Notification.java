@@ -11,7 +11,9 @@ public abstract class Notification implements NotificationInterface{
     private long notificationDate;
     private String notificationType;
 
-    /*
+    public Notification(){};
+
+    /**
     * Object class for all notifications. All notification cards will inherit from this class.
     *
     * */
