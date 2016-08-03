@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,12 @@ public class MyHomeFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        ItemTouchHelper.Callback callback = new HomeSwipeHelper(adapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(recyclerView);
+
+
+
         return rootView;
     }
 
@@ -53,13 +60,11 @@ public class MyHomeFragment extends Fragment {
         //Creating test data to fill the recyclerview.
         notifications = new ArrayList<>();
 
-        int j = helper.getInquiries().size();
+        Warning warning = new Warning("Tornado Warning",
+                "Environment Canada meteorologists are tracking what they describe as a " +
+                        "severe thunderstorm that may produce a tornado in southern Manitoba.", 01);
 
-        for (int i = 0; i < j; i++) {
-
-             // ** TO DO ** Add the database fetched object to the notification List
-
-        }
+        notifications.add(warning);
 
     }
 }

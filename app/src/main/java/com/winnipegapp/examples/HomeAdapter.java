@@ -105,7 +105,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 viewHolder = new PublicInquiryCard(v5);
                 break;
             default:
-                View v = inflater.inflate(R.layout.notification_header, viewGroup, false);
+                View v = inflater.inflate(R.layout.cardview_template, viewGroup, false);
                 viewHolder = new NotificationCard(v);
                 break;
         }
@@ -155,6 +155,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             notificationCard.getNotificationDescription().setText(notification.getDescription());
             notificationCard.getNotificationDate().setText(dateString);
         }
+    }
+
+    /**
+     * Dismisses an item from the RecyclerView.
+     *
+     * @param position The position of the item to be dismissed.
+     * */
+    public void dismissItem(int position){
+        notifications.remove(position);
+        this.notifyItemRemoved(position);
     }
 
     /*

@@ -1,19 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     >
     <android.support.v7.widget.CardView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_margin="8dp"
-        android:backgroundTint="#CC3333"
+        android:backgroundTint="#ffffff"
+        android:padding="16dp"
         >
-        <include layout = "@layout/notification_header">
-
-
-        </include>
-
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        <RelativeLayout
+            android:id="@+id/notificationHeader"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#CC3333"
+            >
+            <ImageView
+                android:id="@+id/notificationIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/warning_exclamation_mark_icon_512x512"
+                android:layout_margin="24dp"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/notificationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="34sp"
+                android:text="Title"
+                android:layout_toRightOf="@id/notificationIcon" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/pinned_warning_icon_512x512"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="16dp"/>
+        </RelativeLayout>
+        <include layout = "@layout/notification_description"
+            android:layout_below="@+id/notificationHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:id="@+id/include" />
+            <include layout = "@layout/notification_time"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/include"
+                android:layout_margin="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
