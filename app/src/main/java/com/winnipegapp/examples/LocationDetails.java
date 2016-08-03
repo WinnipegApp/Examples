@@ -15,8 +15,15 @@ public class LocationDetails {
 
     private int location_id;
     private String name;
-    private String category;
+    private int category;
     private String coordinates;
+
+    final int POOLS = 0;
+    final int GOLFCOURSES = 1;
+    final int LIBRARIES = 2;
+    final int EMERGENCYROOMS = 3;
+    final String[] CATEGORY_NAME = {"Pools","Golf Courses","Libraries","Emergency Rooms"};
+    //CATEGORY_NAME[LIBRARIES] == "Libraries"
 
     /*
     * No arg constructor.
@@ -26,7 +33,7 @@ public class LocationDetails {
     /*
     * Constructor for LocationDetails with specific data.
     * */
-    public LocationDetails(int location_id, String category, String name, String coordinates){
+    public LocationDetails(int location_id, int category, String name, String coordinates){
         this.location_id = location_id;
         this.category = category;
         this.name = name;
@@ -42,11 +49,11 @@ public class LocationDetails {
         this.location_id = location_id;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 

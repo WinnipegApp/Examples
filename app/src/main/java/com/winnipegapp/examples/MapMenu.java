@@ -7,6 +7,7 @@ package com.winnipegapp.examples;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,7 +20,8 @@ import android.util.Log;
 public class MapMenu extends DialogFragment {
 
     boolean[] selectedFilters;
-    private CharSequence[] items = { "Emergency Rooms", "Pools", "Golf Courses", "Libraries" };
+    private static CharSequence[] items = { "Pools", "Golf Courses", "Libraries", "Emergency Rooms" };
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -30,26 +32,24 @@ public class MapMenu extends DialogFragment {
 
         builder.setTitle("Map Filters").setMultiChoiceItems(items, selectedFilters, new DialogInterface.OnMultiChoiceClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
+            @Override
+            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
 
-                                if (isChecked)
+                if (isChecked) {
+                    selectedFilters[position] = true;
+                }else {
+                    selectedFilters[position] = false;
+                }
+            }
 
-                                    selectedFilters[position] = true;
-
-                                else
-
-                                    selectedFilters[position] = false;
-
-                            }
-
-                        })
+        })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
 
-                        storeUserFilters(selectedFilters, "selectedFilters", getActivity());
+                        storeUserFilters("selectedFilters", getActivity());
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
 
                     }
                 })
@@ -68,9 +68,8 @@ public class MapMenu extends DialogFragment {
 
     }
 
-    public void initialiseData() {
 
-        loadUserFilters("selectedFilters", getActivity());
+    public void initialiseData() {
 
         if (selectedFilters == null || selectedFilters.length == 0) {
 
@@ -79,41 +78,46 @@ public class MapMenu extends DialogFragment {
             Arrays.fill(selectedFilters, true);
 
         }
+        loadUserFilters("selectedFilters", getActivity());
+
 
     }
 
-    public boolean storeUserFilters(boolean[] array, String arrayName, Context mContext) {
+    public boolean storeUserFilters(String arrayName, Context mContext) {
 
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("selectedFilters", 0);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("selectedFilters",0);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.clear().commit();
 
-        editor.putInt(arrayName +"_size", array.length);
+        editor.putInt(arrayName +"_size", selectedFilters.length);
 
-        for (int i = 0; i < array.length; i++)
-
-            editor.putBoolean(arrayName + "_" + i, array[i]);
+        for (int i = 0; i < selectedFilters.length; i++)
+            editor.putBoolean(arrayName + "_" + i, selectedFilters[i]);
 
         return editor.commit();
 
     }
 
-    public boolean[] loadUserFilters(String arrayName, Context mContext) {
+    public void loadUserFilters(String arrayName, Context mContext) {
 
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("selectedFilters", 0);
 
-        int size = sharedPreferences.getInt(arrayName + "_size", 0);
 
-        selectedFilters = new boolean[size];
-
-        for (int i = 0; i < size; i++)
-
-            selectedFilters[i] = sharedPreferences.getBoolean(arrayName + "_" + i, false);
-
-        return selectedFilters;
+        for (int i = 0; i < selectedFilters.length; i++)
+            selectedFilters[i] = sharedPreferences.getBoolean(arrayName + "_" + i, true);
 
     }
+    public static boolean[] getSelectedFilters (Context context)
+    {
+        boolean[] selectedFilters = new boolean[items.length];
+        SharedPreferences sharedPreferences = context.getSharedPreferences("selectedFilters", 0);
 
+
+        for (int i = 0; i < selectedFilters.length; i++)
+            selectedFilters[i] = sharedPreferences.getBoolean("selectedFilters_" + i, true);
+
+        return selectedFilters;
+    }
 }
