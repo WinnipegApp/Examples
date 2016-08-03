@@ -42,6 +42,15 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
+
 
     }
 
@@ -76,7 +85,7 @@ public class LoginActivity extends AppCompatActivity
         if(strPass.equals("badpassword") & strNumber.equals("1234567"))
         {
             Toast.makeText(LoginActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-            Intent myIntent = new Intent(LoginActivity.this, MyProfileActivity.class);
+            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
             myIntent.putExtra("testUserId", "test");
             startActivity(myIntent);
         }

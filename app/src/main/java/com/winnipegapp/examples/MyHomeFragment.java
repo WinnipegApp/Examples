@@ -54,7 +54,8 @@ public class MyHomeFragment extends Fragment {
     }
 
 
-    private void initializeData() {
+    private void initializeData()
+    {
 
         DatabaseHelper helper = DatabaseHelper.getInstance(getActivity());
 
@@ -64,6 +65,7 @@ public class MyHomeFragment extends Fragment {
         Warning warning = new Warning("Tornado Warning",
                 "Environment Canada meteorologists are tracking what they describe as a " +
                         "severe thunderstorm that may produce a tornado in southern Manitoba.", 01);
+
 
         Event event01 = new Event(01, "First Fridays in the Exchange",
                 "FIRST FRIDAYS is a great way to get to know the Exchange District every 1st " +

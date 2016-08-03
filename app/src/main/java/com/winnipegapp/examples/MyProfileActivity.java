@@ -78,7 +78,7 @@ public class MyProfileActivity extends AppCompatActivity {
         txtPostal = (TextView)findViewById(R.id.textPostal);
         txtSnowZone = (TextView)findViewById(R.id.textSnowZone);
 
-        txtName.setText(sValue);
+        txtName.setText(user1.getFull_name());
         txtAddress.setText(user1.getAddress());
         txtPhone.setText(Integer.toString(user1.getMobile_no()));
         txtEmail.setText("jjones.gmail");
