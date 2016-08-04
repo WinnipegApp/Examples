@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -117,9 +118,7 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             return;
 
         } else {
-
             // else, try to get last known location.
-
         }
 
         mMap = googleMap;
@@ -135,11 +134,8 @@ public class MapFragment extends Fragment implements android.location.LocationLi
             mMap.setMyLocationEnabled(true);
 
         } catch (SecurityException se) {
-
             se.printStackTrace();
-
         }
-
     }
     private void addMarkers(){
         boolean[] filters = MapMenu.getSelectedFilters(getActivity());
