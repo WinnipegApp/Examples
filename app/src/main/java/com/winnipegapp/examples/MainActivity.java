@@ -198,13 +198,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             startActivity(intent);
 
-        } else if (id == R.id.settings) {
+        } else if (id == R.id.login) {
 
             //replaceFragment(new SettingsFragment());
 
             //TEMPORARY
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
+
+
+        } else if (id == R.id.settings) {
+
+            replaceFragment(new SettingsFragment());
 
 
         } else if (id == R.id.about) {
