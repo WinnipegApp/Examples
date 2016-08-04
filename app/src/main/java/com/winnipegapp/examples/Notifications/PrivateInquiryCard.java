@@ -8,7 +8,5 @@ import android.view.View;
 public class PrivateInquiryCard extends NotificationCard {
     public PrivateInquiryCard(View itemView) {
         super(itemView);
-
-        this.getNotificationType().setText("Inquiry");
     }
 }

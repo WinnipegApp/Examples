@@ -11,7 +11,6 @@ public class Weather extends Notification {
 
     public Weather(String title, String description, int notificationId, int notificationImage) {
         super(title, description, notificationId);
-        this.setNotificationType("WEATHER");
 
     }
 

@@ -11,7 +11,6 @@ public class PublicInquiryCard extends NotificationCard {
     public PublicInquiryCard(View itemView) {
         super(itemView);
 
-        this.getNotificationType().setText("Inquiry");
     }
 
 

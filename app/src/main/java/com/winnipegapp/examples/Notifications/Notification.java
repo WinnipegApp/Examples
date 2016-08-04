@@ -66,13 +66,6 @@ public abstract class Notification implements NotificationInterface{
         this.notificationDate = notificationDate;
     }
 
-    public String getNotificationType() {
-        return notificationType;
-    }
-
-    public void setNotificationType(String notificationType) {
-        this.notificationType = notificationType;
-    }
     //endregion
 
 }

@@ -6,7 +6,6 @@ package com.winnipegapp.examples.Notifications;
 public class Warning extends Notification {
     public Warning(String title, String description, int notificationId) {
         super(title, description, notificationId);
-        this.setNotificationType("WARNING");
     }
 
     @Override

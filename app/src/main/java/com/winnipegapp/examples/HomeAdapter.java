@@ -25,6 +25,7 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     List<Object> notifications;
+    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
 
     //  enum values for determining what kind of view to instantiate.
     private final int
@@ -97,7 +98,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 viewHolder = new EventCard(v3);
                 break;
             case PRIVATE_INQUIRY:
-                View v4 = inflater.inflate(R.layout.cardview_privateinquiry, viewGroup, false);
+                View v4 = inflater.inflate(R.layout.cardview_basic, viewGroup, false);
                 viewHolder = new PrivateInquiryCard(v4);
                 break;
             case PUBLIC_INQUIRY:
@@ -151,7 +152,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private void configureNotificationCard(NotificationCard notificationCard, int position){
         Notification notification = (Notification) notifications.get(position);
         if (notification != null){
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
             String dateString = sdf.format(notification.getNotificationDate());
 
             notificationCard.getNotificationTitle().setText(notification.getTitle());
@@ -187,7 +187,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private void configureEventCard(EventCard eventCard, int position){
         Event event = (Event) notifications.get(position);
         if (event != null){
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
             String dateString = sdf.format(event.getStart_time());
 
             eventCard.getNotificationTitle().setText(event.getName());
@@ -200,7 +199,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private void configurePrivateInquiryCard(PrivateInquiryCard privateInquiryCard, int position){
         Inquiry inquiry = (Inquiry) notifications.get(position);
         if (inquiry != null){
-            configureNotificationCard(privateInquiryCard, position);
+            String dateString = sdf.format(inquiry.getCreated_at());
+            privateInquiryCard.getNotificationTitle().setText(inquiry.getType());
+            privateInquiryCard.getNotificationDescription().setText(inquiry.getDescription());
+            privateInquiryCard.getNotificationDate().setText(dateString);
+            privateInquiryCard.getNotificationType().setText("Inquiry");
         }
     }
     private void configurePublicInquiryCard(PublicInquiryCard publicInquiryCard, int position){

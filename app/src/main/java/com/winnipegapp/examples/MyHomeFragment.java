@@ -40,7 +40,7 @@ public class MyHomeFragment extends Fragment {
 
         initializeData();
 
-        HomeAdapter adapter = new HomeAdapter(notifications);
+        adapter = new HomeAdapter(notifications);
 
         recyclerView.setAdapter(adapter);
 
@@ -91,10 +91,14 @@ public class MyHomeFragment extends Fragment {
                 " Longus. Chagall created these colourful pieces in the 1950s, inspired by the" +
                 " great love of his life, Valentina.", "789 Main");
 
+        Inquiry inquiry01 = new Inquiry(01, "Graffiti Removal", "On the way home we found a bus" +
+                "stop by the bus depot down town on Portage @ Vaughn had been vandalized.");
+
 
         notifications.add(warning);
         notifications.add(event01);
         notifications.add(event02);
+        notifications.add(inquiry01);
         notifications.add(event03);
 
     }

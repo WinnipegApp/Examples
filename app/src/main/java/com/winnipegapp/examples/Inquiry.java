@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Amari on 2016-07-18.
@@ -36,6 +37,16 @@ public class Inquiry extends Notification implements NotificationInterface{
     * No arg constructor.
     * */
     public Inquiry(){}
+
+    /**
+    * Constructor passed parameters sans image and coordinates
+    * */
+    public Inquiry(int inquiry_id, String type, String description) {
+        this.inquiry_id = inquiry_id;
+        this.type = type;
+        this.description = description;
+        this.created_at = generateRandomTime();
+    }
 
     /*
     * Constructor passed parameters
@@ -113,6 +124,35 @@ public class Inquiry extends Notification implements NotificationInterface{
         else{
             return -1;
         }
+    }
+
+    /**
+     * Returns a psuedo-random number between min and max, inclusive.
+     * The difference between min and max can be at most
+     * <code>Integer.MAX_VALUE - 1</code>.
+     *
+     * @param min Minimim value
+     * @param max Maximim value.  Must be greater than min.
+     * @return Integer between min and max, inclusive.
+     * @see java.util.Random#nextInt(int)
+     */
+    public static int randInt(int min, int max) {
+
+        // Usually this can be a field rather than a method variable
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
+    public long generateRandomTime(){
+        long currentDate = System.currentTimeMillis();
+
+        return currentDate + ( 1+ (randInt(100000000, 1000000000)));
+
     }
 
     //region Default getters and setters
