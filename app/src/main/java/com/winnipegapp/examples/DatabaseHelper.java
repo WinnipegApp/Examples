@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 9;
+    public static final int DATABASE_VERSION = 10;
 
     //<editor-fold desc="Table constants. Open at your own risk. ">
     //  Table names.
@@ -332,7 +332,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 LocationDetails location = new LocationDetails();
                 location.setLocation_id(Integer.parseInt(cursor.getString(0)));
                 location.setName(cursor.getString(1));
-                location.setCategory(cursor.getInt(2));
+                location.setCategory(Integer.parseInt(cursor.getString(2)));
                 location.setCoordinates(cursor.getString(3));
                 locations.add(location);
             }while (cursor.moveToNext());
@@ -383,7 +383,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do{
                 Inquiry inquiry = new Inquiry();
                 inquiry.setInquiry_id(Integer.parseInt(cursor.getString(0)));
-                inquiry.setCreated_at(cursor.getInt(1));
+                inquiry.setCreated_at(Integer.parseInt(cursor.getString(1)));
                 inquiry.setType(cursor.getString(2));
                 inquiry.setDescription(cursor.getString(3));
                 inquiry.setImage_url(cursor.getString(4));
