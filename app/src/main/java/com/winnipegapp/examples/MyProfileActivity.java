@@ -71,7 +71,7 @@ public class MyProfileActivity extends AppCompatActivity {
         DatabaseHelper helper = DatabaseHelper.getInstance(this);
         User user1 = helper.selectSpecificUser(1).get(0);
 
-        String s = ((GlobalVariable) this.getApplication()).variableGetter();
+        String s = ((GlobalVariable) this.getApplication()).svariableGetter();
 
         txtName = (TextView)findViewById(R.id.textName );
         txtAddress = (TextView)findViewById(R.id.textAddress);

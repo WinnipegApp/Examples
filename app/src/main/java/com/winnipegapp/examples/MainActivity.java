@@ -51,9 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent myIntent = getIntent();
         boolean bValue = myIntent.getBooleanExtra("bMyUser", false);
 
-        ((GlobalVariable)this.getApplication()).variableSetter("TESTINGGLOBAL");
-
-
+        ((GlobalVariable)this.getApplication()).svariableSetter("TESTINGGLOBAL");
 
     }
 

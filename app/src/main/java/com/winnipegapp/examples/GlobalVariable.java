@@ -7,15 +7,28 @@ import android.app.Application;
  */
 public class GlobalVariable extends Application
 {
-    private String someVariable;
+    private String sVariable;
+    private boolean bVariable;
 
-    public String variableGetter()
+    public String svariableGetter()
     {
-        return someVariable;
+        return sVariable;
     }
 
-    public void variableSetter(String someVariable)
+    public void svariableSetter(String sVariable)
     {
-        this.someVariable = someVariable;
+        this.sVariable = sVariable;
     }
+
+    public boolean bvariableGetter()
+    {
+        return bVariable;
+    }
+
+    public void bvariableSetter(Boolean bVariable)
+    {
+        this.bVariable = bVariable;
+    }
+
+
 }
