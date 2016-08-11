@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //  Contains all the constants for the database. Open at your own risk!
     public static final String DATABASE_NAME = "USER_DATABASE";
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 9;
 
     //<editor-fold desc="Table constants. Open at your own risk. ">
     //  Table names.
