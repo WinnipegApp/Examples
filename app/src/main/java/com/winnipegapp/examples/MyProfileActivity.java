@@ -71,6 +71,8 @@ public class MyProfileActivity extends AppCompatActivity {
         DatabaseHelper helper = DatabaseHelper.getInstance(this);
         User user1 = helper.selectSpecificUser(1).get(0);
 
+        String s = ((GlobalVariable) this.getApplication()).svariableGetter();
+
         txtName = (TextView)findViewById(R.id.textName );
         txtAddress = (TextView)findViewById(R.id.textAddress);
         txtPhone = (TextView)findViewById(R.id.textNumber);
@@ -78,7 +80,7 @@ public class MyProfileActivity extends AppCompatActivity {
         txtPostal = (TextView)findViewById(R.id.textPostal);
         txtSnowZone = (TextView)findViewById(R.id.textSnowZone);
 
-        txtName.setText(user1.getFull_name());
+        txtName.setText(s);
         txtAddress.setText(user1.getAddress());
         txtPhone.setText(Integer.toString(user1.getMobile_no()));
         txtEmail.setText("jjones.gmail");
