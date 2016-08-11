@@ -132,5 +132,4 @@ public class LoginRegistrationFormS2 extends AppCompatActivity
 
     }
 
-
 }
