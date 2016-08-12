@@ -25,7 +25,7 @@ public class GlobalVariable extends Application
         return bVariable;
     }
 
-    public void bvariableSetter(Boolean bVariable)
+    public void bvariableSetter(boolean bVariable)
     {
         this.bVariable = bVariable;
     }

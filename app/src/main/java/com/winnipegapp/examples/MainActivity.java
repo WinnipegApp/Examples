@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private TabLayout tabLayout;
+    boolean bLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent myIntent = getIntent();
         boolean bValue = myIntent.getBooleanExtra("bMyUser", false);
 
+        bLogin = ((GlobalVariable)this.getApplication()).bvariableGetter();
         ((GlobalVariable)this.getApplication()).svariableSetter("TESTINGGLOBAL");
 
         //  Create locations here.
@@ -280,9 +282,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
-
-
-
+    public boolean getMyData()
+    {
+        return bLogin;
+    }
 
 }

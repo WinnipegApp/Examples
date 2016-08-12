@@ -2,6 +2,7 @@ package com.winnipegapp.examples;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.microedition.khronos.opengles.GL;
+
 
 public class MyHomeFragment extends Fragment {
 
@@ -24,9 +27,12 @@ public class MyHomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private HomeAdapter adapter;
 
+    boolean bLogin;
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
 
         View rootView = inflater.inflate(R.layout.fragment_my_home, container, false);
 
@@ -94,13 +100,16 @@ public class MyHomeFragment extends Fragment {
         Inquiry inquiry01 = new Inquiry(01, "Graffiti Removal", "On the way home we found a bus" +
                 "stop by the bus depot down town on Portage @ Vaughn had been vandalized.");
 
-
+        MainActivity mActivity = (MainActivity)getActivity();
+        bLogin = mActivity.getMyData();
         notifications.add(warning);
         notifications.add(event01);
         notifications.add(event02);
-        notifications.add(inquiry01);
+        if(bLogin)
+        {
+            notifications.add(inquiry01);
+        }
         notifications.add(event03);
-
     }
 
     /**

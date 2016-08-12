@@ -84,9 +84,9 @@ public class LoginActivity extends AppCompatActivity
 
         if(strPass.equals("badpassword") & strNumber.equals("1234567"))
         {
+            ((GlobalVariable)this.getApplication()).bvariableSetter(true);
             Toast.makeText(LoginActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
             Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-            myIntent.putExtra("testUserId", "test");
             startActivity(myIntent);
         }
         else
