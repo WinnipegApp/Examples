@@ -9,4 +9,16 @@
     <string name="pools"> Pools </string>
     <string name="golf_courses"> Golf Courses </string>
     <string name="hospitals_walk_ins"> Hospitals/Walk Ins </string>
+
+    <string name="about_title"><u>Aboot Winnipeg App</u></string>
+    <string name="about_paragraph">
+        The Winnipeg App is an app designed to consolidate most of the
+        city of Winnipeg services into one app such as waste and snow removal,
+        utility readings, and weather warnings. As well, general inquiries for city services such as potholes,
+        fallen trees, and graffiti removal can be made.
+    </string>
+    <string name="designed_by">Designed by: Alex Gladkyi</string>
+    <string name="concept_by">Concept by: Sergii Us and Consultica</string>
+    <string name="developed_by">Developed by: Amari Len, Christian Isip, Mauricio Fagundes, and Brett Cann </string>
+    <string name="android_version">For Android Versions 4.1 (Jelly Bean) to 6 (Marshmallow)</string>
 </resources>
