@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ((GlobalVariable)this.getApplication()).svariableSetter("TESTINGGLOBAL");
 
+        //  Create locations here.
+
     }
 
     private void setupBottomBar() {

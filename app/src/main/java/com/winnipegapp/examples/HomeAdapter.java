@@ -98,7 +98,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 viewHolder = new EventCard(v3);
                 break;
             case PRIVATE_INQUIRY:
-                View v4 = inflater.inflate(R.layout.cardview_basic, viewGroup, false);
+                View v4 = inflater.inflate(R.layout.cardview_privateinquiry, viewGroup, false);
                 viewHolder = new PrivateInquiryCard(v4);
                 break;
             case PUBLIC_INQUIRY:
@@ -106,7 +106,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 viewHolder = new PublicInquiryCard(v5);
                 break;
             default:
-                View v = inflater.inflate(R.layout.cardview_basic, viewGroup, false);
+                View v = inflater.inflate(R.layout.notification_details, viewGroup, false);
                 viewHolder = new NotificationCard(v);
                 break;
         }

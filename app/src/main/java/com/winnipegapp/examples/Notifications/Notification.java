@@ -3,13 +3,12 @@ package com.winnipegapp.examples.Notifications;
 /**
  * Created by Amari on 2016-06-14.
  */
-public abstract class Notification implements NotificationInterface{
+public class Notification implements Comparable{
     //  Field declaration.
-    private String title;
-    private String description;
-    private int notificationId;
-    private long notificationDate;
-    private String notificationType;
+    protected String title = "";
+    protected String description = "";
+    protected int notificationId = 0;
+    protected long notificationDate = 0;
 
     public Notification(){};
 
@@ -22,15 +21,9 @@ public abstract class Notification implements NotificationInterface{
         this.description = description;
         this.notificationId = notificationId;
 
-        this.notificationType = "NOTIFICATION";
         //  Date Usage:
         //  SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a")
         this.notificationDate = System.currentTimeMillis();
-    }
-
-    @Override
-    public long fetchDate() {
-        return this.notificationDate;
     }
 
     //region Default getters and setters.
@@ -66,6 +59,24 @@ public abstract class Notification implements NotificationInterface{
         this.notificationDate = notificationDate;
     }
 
+    @Override
+    public int compareTo(Object another) {
+        Notification notification = (Notification) another;
+        long time = notification.getNotificationDate();
+
+        if(this.notificationDate > time) {
+            return 1;
+        }
+        else if(this.notificationDate < time){
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    }
+
     //endregion
+
+
 
 }

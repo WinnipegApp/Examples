@@ -1,7 +1,6 @@
 package com.winnipegapp.examples;
 
 import com.winnipegapp.examples.Notifications.Notification;
-import com.winnipegapp.examples.Notifications.NotificationInterface;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +10,7 @@ import java.util.Random;
 /**
  * Created by Amari on 2016-07-19.
  */
-public class Event extends Notification implements NotificationInterface{
+public class Event extends Notification{
 
     private int event_id;
     private long start_time;
@@ -35,6 +34,7 @@ public class Event extends Notification implements NotificationInterface{
         this.name = name;
         this.description = description;
         this.address = address;
+        this.notificationDate = this.start_time;
     }
 
 
@@ -46,6 +46,8 @@ public class Event extends Notification implements NotificationInterface{
         this.description = description;
         this.address = address;
         this.event_image = event_image;
+
+        this.notificationDate = start_time;
     }
 
     /**
@@ -143,32 +145,10 @@ public class Event extends Notification implements NotificationInterface{
         return hour.format(this.start_time);
 
     }
-
-
-    /**
-    * Methods for sorting Events in the notification feed.
-     * */
     @Override
-    public long fetchDate() {
+    public long getNotificationDate(){
         return this.start_time;
     }
-    @Override
-    public int compareTo(Object another) {
-
-        long time = ((NotificationInterface)another).fetchDate();
-
-        if (this.start_time == time){
-            return 0;
-        }
-        else if(this.start_time > time){
-            return 1;
-        }
-        else{
-            return -1;
-        }
-    }
-
-
 
 
     //region Default getters and setters.
@@ -180,12 +160,12 @@ public class Event extends Notification implements NotificationInterface{
         this.event_id = event_id;
     }
 
-    public long getStart_time() {
-        return start_time;
+    public long getStart_time() {return start_time;
     }
 
     public void setStart_time(long start_time) {
         this.start_time = start_time;
+        this.notificationDate = start_time;
     }
 
     public long getEnd_time() {
@@ -227,6 +207,7 @@ public class Event extends Notification implements NotificationInterface{
     public void setEvent_image(String event_image) {
         this.event_image = event_image;
     }
+
 
     //endregion
 }

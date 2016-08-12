@@ -3,12 +3,9 @@ package com.winnipegapp.examples;
 import android.location.Location;
 
 import com.winnipegapp.examples.Notifications.Notification;
-import com.winnipegapp.examples.Notifications.NotificationInterface;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 /**
@@ -16,7 +13,7 @@ import java.util.Random;
  *
  * Slightly updated by Mauricio on 2016-07-19
  */
-public class Inquiry extends Notification implements NotificationInterface{
+public class Inquiry extends Notification{
     /*
     * Class for an Inquiry.
     * */
@@ -46,6 +43,7 @@ public class Inquiry extends Notification implements NotificationInterface{
         this.type = type;
         this.description = description;
         this.created_at = generateRandomTime();
+        this.notificationDate = generateRandomTime();
     }
 
     /*
@@ -59,6 +57,7 @@ public class Inquiry extends Notification implements NotificationInterface{
         this.coordinates = coordinates;
 
         this.created_at = System.currentTimeMillis();
+        this.notificationDate = System.currentTimeMillis();
     }
 
     /*
@@ -104,27 +103,6 @@ public class Inquiry extends Notification implements NotificationInterface{
         this.coordinates = location.getLatitude() + "," + location.getLongitude();
     }
 
-    /**
-    * Methods for reordering events in the notification feed.
-     * */
-    @Override
-    public long fetchDate() {
-        return this.created_at;
-    }
-    @Override
-    public int compareTo(Object another) {
-        long time = ((NotificationInterface)another).fetchDate();
-
-        if (this.created_at == time){
-            return 0;
-        }
-        else if(this.created_at > time){
-            return 1;
-        }
-        else{
-            return -1;
-        }
-    }
 
     /**
      * Returns a psuedo-random number between min and max, inclusive.
@@ -186,6 +164,7 @@ public class Inquiry extends Notification implements NotificationInterface{
 
     public void setCreated_at(long created_at) {
         this.created_at = created_at;
+        this.notificationDate = created_at;
     }
 
     public String getImage_url() {
