@@ -20,10 +20,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,8 +37,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/about_title"
             android:id="@+id/title"
-            android:textSize="16sp"
-            android:textColor="#000000"/>
+            android:textSize="24sp"
+            android:textColor="#000000"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +50,8 @@
             android:id="@+id/about_paragraph"
             android:layout_gravity="center"
             android:textColor="#000000"
-            android:layout_marginTop="70dp" />
+            android:layout_marginTop="62dp"
+            android:layout_marginLeft="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +61,12 @@
             android:id="@+id/designed_by"
             android:layout_gravity="center"
             android:textColor="#000000"
-            android:layout_marginTop="70dp" />
+            android:layout_below="@+id/about_paragraph"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,7 +76,11 @@
             android:id="@+id/concept_by"
             android:layout_gravity="center"
             android:textColor="#000000"
-            android:layout_marginTop="70dp" />
+            android:layout_below="@+id/designed_by"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,7 +90,11 @@
             android:id="@+id/developed_by"
             android:layout_gravity="center"
             android:textColor="#000000"
-            android:layout_marginTop="70dp" />
+            android:layout_below="@+id/concept_by"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,8 +104,13 @@
             android:id="@+id/android_version"
             android:layout_gravity="center"
             android:textColor="#000000"
-            android:layout_marginTop="70dp" />
+            android:layout_below="@+id/developed_by"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

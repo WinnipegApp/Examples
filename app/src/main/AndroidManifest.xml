@@ -55,6 +55,8 @@
 
         <activity android:name=".LoginRegistrationFormS2"></activity>
 
+        <activity android:name=".AboutActivity"></activity>
+
 
 
     </application>

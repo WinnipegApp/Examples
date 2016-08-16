@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab)
+            {
                 setCurrentTabFragment(tab.getPosition());
 
             }
@@ -220,7 +221,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.about) {
 
-            replaceFragment(new AboutFragment());
+            //replaceFragment(new AboutFragment());
+
+            //TEMPORARY
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.techsupport) {
 
