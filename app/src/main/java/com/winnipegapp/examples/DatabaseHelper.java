@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    //  Contains all the constants for the database. Open at your own risk!
+    //  Database name and version
     public static final String DATABASE_NAME = "USER_DATABASE";
     public static final int DATABASE_VERSION = 10;
 
@@ -171,19 +171,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Constructor for the database helper, for accessing the database.
+     * */
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    /*
-    * On first run, will create all the tables.*/
+    /**
+    * On first run, will create all the tables.
+     * */
     @Override
     public void onCreate(SQLiteDatabase db) {
         buildTables(db);
     }
 
 
-    /*
+    /**
     * On upgrade, it drops all the tables and rebuilds the database
     * */
     @Override
@@ -192,7 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         buildTables(db);
     }
 
-    /*
+    /**
     * Builds all the current tables.
     * */
     public void buildTables(SQLiteDatabase db) {
@@ -205,7 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_READINGS);
     }
 
-    /*
+    /**
     * Drops all the current tables.
     * */
     public void dropTables(SQLiteDatabase db) {
@@ -218,7 +222,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_READINGS);
     }
 
-    /*
+    /**
     * Deletes all rows from the table..
      */
     public void deleteAll(){
@@ -228,7 +232,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    /*
+    /**
     * Method for creating users. Pass it a user object and it will add it to the database.
     * */
     public void createUser(User user){
@@ -247,7 +251,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_USERS, null, values);
     }
 
-    /*
+    /**
     * Method for retrieving users from the database. This is exclusively for the prototype.
     * */
     public List<User> selectAllUsers(){
@@ -300,7 +304,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return users;
     }
 
-    /*
+    /**
     * Adds a location to the database
     * */
     public void createLocation(LocationDetails locationDetail){
@@ -317,7 +321,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_LOCATIONS, null, values);
     }
 
-    /*
+    /**
     * Retrieves a list of all location details.
     * */
     public List<LocationDetails> getLocations(){
@@ -341,7 +345,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return locations;
     }
 
-    /*
+    /**
     * Adds an inquiry to the database.
     * */
     public void createInquiry(Inquiry inquiry){
@@ -366,10 +370,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
         }
-
     }
 
-    /*
+    /**
     * Retrieves a list of all inquiries
      * */
     public List<Inquiry> getInquiries(){
@@ -394,7 +397,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return inquiries;
     }
 
-    /*
+    /**
     * Adds a new inquiry update to the database.
     * */
     public void createInquiryUpdate(InquiryUpdate update) {
@@ -413,7 +416,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    /*
+    /**
     * Retrieves all inquiry updates. Pass it an inquiry id number and receive all updates related.
     * */
         public List<InquiryUpdate> getInquiryUpdates(int inquiry_id){
@@ -438,7 +441,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return updates;
     }
 
-    /*
+    /**
     * Adds a metre reading to the database.
     * */
     public void createReading(Reading reading){
@@ -455,7 +458,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_READINGS, null, values);
     }
 
-    /*
+    /**
     * Retrieves a list of all readings from the database
     * */
     public List<Reading> getReadings(){
@@ -478,7 +481,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return readings;
     }
 
-    /*
+    /**
     * Adds an event to the database
     * */
     public void createEvent(Event event){
@@ -498,7 +501,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_EVENTS, null, values);
     }
 
-    /*
+    /**
     * Retrieves all events from the database.
     * */
     public List<Event> getEvents(){

@@ -166,12 +166,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
      * @param position The position of the item to be dismissed.
      * */
     public void dismissItem(int position){
-        notifications.remove(position);
-        this.notifyItemRemoved(position);
+        if(!(notifications.get(position) instanceof Warning)) {
+            notifications.remove(position);
+            this.notifyItemRemoved(position);
+        }
     }
 
-    /*
-    * Below are methods to configure the cardviews to have data after they are created.*/
+
+    /**
+    * Below are methods to configure the cardviews to have data after they are created.
+     * */
     private void configureWarningCard(WarningCard warningCard, int position){
         Warning warning = (Warning) notifications.get(position);
         if (warning != null){

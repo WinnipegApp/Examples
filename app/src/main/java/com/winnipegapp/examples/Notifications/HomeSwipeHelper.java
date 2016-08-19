@@ -26,11 +26,23 @@ public class HomeSwipeHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        return false;
+            return false;
     }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         adapter.dismissItem(viewHolder.getAdapterPosition());
+
     }
+
+    /**
+     * Warnings cannot be dismissed.
+     * */
+    @Override
+    public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder){
+        if (viewHolder instanceof WarningCard) return 0;
+        return super.getSwipeDirs(recyclerView, viewHolder);
+    }
+
+
 }
